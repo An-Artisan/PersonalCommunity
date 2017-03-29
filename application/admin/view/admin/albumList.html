@@ -1,0 +1,229 @@
+{layout name="layout" /}
+<script>
+        // 定义获取添加相册控制器地址
+        var deleteAlbumController = '{:url('AlbumController/deleteAlbumController')}';
+</script>
+<div class="tpl-page-container tpl-page-header-fixed">
+
+
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                Amaze UI 列表
+            </div>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href="{:url('index/index')}" class="nav-link ">
+                            <i class="am-icon-home"></i>
+                            <span>首页</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-table"></i>
+                            <span>个人网站</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                        </a>
+                           <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                            <li>
+                                <a href="{:url('AlbumController/albumList')}" class="active">
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>相册管理</span>
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+                                    {$album_count}
+                                    </i>
+                                </a>
+                                <a href="{:url('AlbumController/addAlbum')}" >
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>添加相册</span>
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+                                    {$photos_count}
+                                    </i>
+                                <a href="{:url('PhotosController/allPhotos')}">
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>查看照片</span>
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+               18
+             </i>
+                        
+
+                                        <a href="{:url('Message/messageList')}">
+                                            <i class="am-icon-angle-right"></i>
+                                            <span>留言列表</span>
+                                            <i class="tpl-left-nav-content tpl-badge-primary">
+               5
+             </i>
+
+
+                                        </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-wpforms"></i>
+                            <span>个人博客</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                            <li>
+
+                                <a href="{:url('uploadPhotos')}">
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>线条表单</span>
+                                    <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-wpforms"></i>
+                            <span>心情笔记</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                            <li>
+
+                                <a href="{:url('uploadPhotos')}">
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>线条表单</span>
+                                    <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-wpforms"></i>
+                            <span>在线聊天</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                            <li>
+
+                                <a href="{:url('uploadPhotos')}">
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>线条表单</span>
+                                    <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="{:url('login')}" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-key"></i>
+                            <span>登录</span>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tpl-content-wrapper">
+            <ol class="am-breadcrumb">
+                <li><a href="#" class="am-icon-home">首页</a></li>
+                <li><a href="#">个人网站</a></li>
+                <li class="am-active">相册列表</li>
+            </ol>
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span> 相册列表
+                    </div>
+                </div>
+                <div class="tpl-block">
+                    <div class="am-g">
+                        <div class="am-u-sm-12 am-u-md-6">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-ls">
+                                    <a><button type="button" id="plus_album" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 添加照片</button></a>
+                                </div>
+                                <div class="am-btn-group am-btn-group-ls">
+                                    <a href="{:url('AlbumController/addAlbum')}"><button type="button"  class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增相册</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-u-sm-12 am-u-md-3">
+                            <div class="am-form-group">
+                                <select data-am-selected="{btnSize: 'sm'}">
+                                  {volist name="album_date" id="vo"}
+                                  <option value="{vo.a_id}">{$vo.a_title}</option>
+                                  {/volist}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="tpl-table-images">
+                            {volist name="album_date" id="vo"}
+                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
+                                <div class="tpl-table-images-content">
+                                    <span class="tpl-i-title">创建时间</span>
+                                    <div class="tpl-table-images-content-i-time">{$vo.a_create_time}</div>
+                                    <div class="tpl-i-title">
+                                        {$vo.a_title}
+                                    </div>
+                                    <a href="javascript:;" class="tpl-table-images-content-i">
+                                        <div class="tpl-table-images-content-i-info">
+                                            <span class="ico">
+                                    <img src="/static/admin/assets/img/user02.png" alt="">追逐
+                                 </span>
+
+                                        </div>
+                                        <span class="tpl-table-images-content-i-shadow"></span>
+                                        <img height="300px;" src="{$vo.a_cover}" alt="">
+                                    </a>
+                                    <div class="tpl-table-images-content-block">
+                                        <div class="tpl-i-font">
+                                            {$vo.a_description}
+                                        </div>
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs tpl-edit-content-btn">
+                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-edit"></span>
+                                                <a style="text-decoration:none;color: #fff;" href="{:url('AlbumController/editAlbum',['id' => $vo['a_id']])}">编辑</a></button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span a_id="{$vo.a_id}" name="delete" class="am-icon-trash-o">删除</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/volist}
+
+                            <div class="am-u-lg-12">
+                                <div class="am-cf">
+
+                                    <div class="am-fr">
+                                       {$album_date->render()}
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $("#plus_album").on("click",function(){
+        layer.open({
+            type: 2,
+            title: '添加照片----上传过程中请勿关闭窗口',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: "{:url('PhotosController/uploadLayer')}" //iframe的url
+            }); 
+    });
+
+
+            
+    </script>
+    <script src="/static/admin/js/deleteAlbum.js"></script>
