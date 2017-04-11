@@ -11,20 +11,24 @@
     <title>Volton - Responsive Mobile Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/index/css/normalize.css">
-    <link rel="stylesheet" href="static/index/css/font-awesome.css">
-    <link rel="stylesheet" href="static/index/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/index/css/templatemo-style.css">
-    <script src="static/index/js/vendor/modernizr-2.6.2.min.js"></script>
-    <script src="static/common/jquery-3.1.1.js"></script>
-    <script src="static/common/layer/layer.js"></script>
+    <link rel="stylesheet" href="/static/index/css/normalize.css">
+    <link rel="stylesheet" href="/static/index/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/index/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/index/css/templatemo-style.css">
+    <link rel="stylesheet" href="/static/common/layui/css/layui.css">
+    <script src="/static/index/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="/static/common/jquery-3.1.1.js"></script>
+    <script src="/static/common/layer/layer.js"></script>
+    <script src="/static/common/layui/layui.js"></script>
     <script>
         // 定义获取验证控制器地址
         var albumEncryptionController = '{:url('albumEncryption')}';
         // 定义获取照片控制器地址
         var photosController='{:url('photos')}';
+        // 定义留言上传图片控制器
+        var message = '{:url('message')}';
     </script>
-    <script src="static/common/common.js"></script>
+    <script src="/static/common/common.js"></script>
     
 </head>
 <script>
@@ -75,7 +79,7 @@
                     <div class="col-md-12">
                         <div class="top-section">
                             <div class="profile-image">
-                                <img src="static/index/img/head.jpg" alt="Volton">
+                                <img src="/static/index/img/head.jpg" alt="Volton">
                             </div>
                             <div class="profile-content">
                                 <h3 class="profile-title">刘强</h3>
@@ -100,7 +104,7 @@
         <div class="sidebar-menu hidden-xs hidden-sm">
             <div class="top-section">
                 <div class="profile-image">
-                    <img src="static/index/img/head.jpg" alt="Volton">
+                    <img src="/static/index/img/head.jpg" alt="Volton">
                 </div>
                 <h3 class="profile-title">刘强</h3>
                 <p class="profile-description">程序员+段子手</p>
@@ -144,7 +148,7 @@
                         <div class="col-md-12">
                             <h4 class="widget-title">快速了解</h4>
                             <div class="about-image">
-                                <img src="static/index/img/9.jpg" alt="about me">
+                                <img src="/static/index/img/9.jpg" alt="about me">
                             </div>
                             <p>我是刘强，文刀刘~，恩，名字比较普通~ 当然不太喜欢别人叫我的名字，我还是比较喜欢你们叫我刘昊，为什么是昊？恩，你把昊字分开读...... 恩，我是一个phper， 要问我性别？请移眼左上角，如果你要问我喜欢什么？那我告诉你吧~ <s>书籍：文学、哲学、经济、政治。。。业余爱好：赋诗、书法、音乐、作画。。。服饰：运动、正式、休闲。。。</s>&nbsp;妹子等~~ 什么？你只看清楚了妹子？没文化了吧~~我不喜欢的东西也很多，比如：@#￥%#￥%&%￥&%￥，汉子~ 怎么样大家已经对我有了一个大概的了解了吧，接下来我们谈谈人生和理想未来吧，嗯？没有联系方式？QQ:1090035743 微信：m1090035743。或者睁大眼睛看看左下角~~ 嗯？喜欢直接的？好~ 我电话：13330295142 欢迎小姑娘和我聊人生理想。汉子？参照上面我不喜欢的东西~</p>
                             <hr>
@@ -194,42 +198,51 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="widget-title">给我留言</h4>
-                            <p>Vestibulum ac iaculis erat, in semper dolor. Maecenas et lorem molestie, maximus justo dignissim, cursus nisl. Nullam at ante quis ex pharetra pulvinar quis id dolor. Integer lorem odio, euismod ut sem sit amet, imperdiet condimentum diam.</p>
                         </div>
                     </div>
                     <div class="row">
-                        <form action="#" method="post" class="contact-form">
-                            <fieldset class="col-md-4 col-sm-6">
-                                <input type="text" id="your-name" placeholder="Your Name...">
+                        <form  class="contact-form">
+                            <fieldset class="col-md-6 col-sm-6">
+                                <input type="text" id="your-name" required="required" placeholder="Your Name...">
                             </fieldset>
-                            <fieldset class="col-md-4 col-sm-6">
+                            <fieldset class="col-md-6 col-sm-6">
                                 <input type="email" id="email" placeholder="Your Email...">
                             </fieldset>
-                            <fieldset class="col-md-4 col-sm-12">
-                                <input type="text" id="your-subject" placeholder="Subject...">
+                            <fieldset class="col-md-12 col-sm-12">
+                                 <textarea id="demo" style="display: none;"></textarea>
                             </fieldset>
                             <fieldset class="col-md-12 col-sm-12">
-                                <textarea name="message" id="message" cols="30" rows="6" placeholder="Leave your message..."></textarea>
-                            </fieldset>
-                            <fieldset class="col-md-12 col-sm-12">
-                                <input type="submit"  class="button big default" value="Send Message">
+                                <input type="button" id="submit"   class="button big default" value="提交留言">
                             </fieldset>
                         </form>
                     </div> 
                     </div>
                     <hr>
+                    <!-- 显示留言数据 -->
+                    {volist name="message_data" id="vo"}
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-md-12"><p class="lead">{$vo.m_name}<span style="float: right;">{$vo.m_time}</span></p></div>
+                      <div class="col-xs-12 col-sm-12 col-md-12"><p class="lead" >{$vo.m_content}<span style="float: right;">{$vo.m_email}</span></p></div>
+                    </div>
+                    <hr>
+                    {/volist}
+                    <!-- 分页数据 -->
+                    {$message_data->render()}
+                    </div>
                     <div class="row" id="footer">
                         <div class="col-md-12 text-center">
-                            <p class="">© 2016 My Project. All rights reserved | Design by <a href="http://www.joker1996.com">www.joker1996.com</a>
+                            <p class="">© 2015-2017 My Project. All rights reserved | Design by <a href="http://www.joker1996.com">www.joker1996.com</a>
                             <br>
-                            <img src="static/index/img/icp.jpg" alt=""  ><a  href="http://www.beianbeian.com/beianxinxi/565ec5c4-fc40-4060-ba09-93bb6239c0e8.html">备案/许可证号：渝ICP备16007281号</a></p>
+                            <img src="/static/index/img/icp.jpg" alt=""  ><a  href="http://www.beianbeian.com/beianxinxi/565ec5c4-fc40-4060-ba09-93bb6239c0e8.html">备案/许可证号：渝ICP备16007281号</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="static/index/js/min/plugins.min.js"></script>
-        <script src="static/index/js/min/main.min.js"></script>
-        <script src="static/index/js/myAlbum.js"></script>  
+        <script src="/static/index/js/min/plugins.min.js"></script>
+        <script src="/static/index/js/min/main.min.js"></script>
+        <script src="/static/index/js/myAlbum.js"></script>  
+        <script src="/static/index/js/message.js"></script>  
+        <script src="/static/common/common.js"></script>  
     </body>
 </html>

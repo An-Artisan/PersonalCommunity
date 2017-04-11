@@ -17,6 +17,8 @@ class PhotosController extends Controller
 		$view->album_count = $common->alubmCount();
 		// 获取照片总数
 		$view->photos_count = $common->photosCount();
+		// 获取留言总数
+		$view->message_count = $common->messageCount();
 		// 实例化照片表模型
 		$photos = new Photos();
 		// 获取前九张照片
@@ -26,7 +28,7 @@ class PhotosController extends Controller
 		// 查询数据集 id和标题，
 		$album_data = $album->field('a_id,a_title')->select();
 		// 渲染模板输出 并赋值模板变量
-		return $view->fetch('admin/allPhotos',['photos_data'=>$photos_data,'album_data'=>$album_data]);
+		return $view->fetch('admin/webSite/allPhotos',['photos_data'=>$photos_data,'album_data'=>$album_data]);
 	}
 	public function deletePhotos(){
 		// 获取post过来的数据
@@ -40,8 +42,8 @@ class PhotosController extends Controller
 		// 执行删除
 		if($photos->delete()){
 			// 删除缩略图及原图
-			unlink(ROOT_PATH . 'public' .DS .$photos->p_address);
-			unlink(ROOT_PATH . 'public' .DS .$photos->p_thum);
+			unlink(ROOT_PATH . 'public' . $photos->p_address);
+			unlink(ROOT_PATH . 'public' . $photos->p_thum);
 			// 返回提示信息
 			return json(["message"=>"删除照片成功！","ico" => 1]);
 		}
@@ -84,9 +86,9 @@ class PhotosController extends Controller
 		// 缩略图 thumb(最大宽度,最大高度,裁剪类型) 1代表等比例裁剪
 		$image->thumb(300, 300, 1); 
 		// 添加水印
-		$image->text('By http://www.joker1996.com', 'Basileia.ttf', 20, '#ffffff');
+		$image->text('By http://www.joker1996.com', 'Basileia.ttf', 10, '#ffffff');
 		// 以当前时间命名水印
-		$saveName = $request->time() . '.png';
+		$saveName = $request->time() . rand(1000,9999) . '.png';
 		// 保存到指定路径
 		$thumb = $image->save(ROOT_PATH . 'public' . DS . 'static' . DS . 'index' . DS . 'album' . DS . 'thumb' . DS . $saveName);
         if($info && $thumb){
@@ -116,7 +118,7 @@ class PhotosController extends Controller
 		// 实例化视图
 		$view = new View();
 		// 输出到视图
-		return $view->fetch('admin/uploadLayer',['album_data'=>$album_data]);
+		return $view->fetch('admin/webSite/uploadLayer',['album_data'=>$album_data]);
 	}
 	
 }

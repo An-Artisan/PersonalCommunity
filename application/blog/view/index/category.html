@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>BLOG  | Amaze UI Examples</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" href="/static/blog/assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="/static/blog/assets/css/app.css">
+</head>
+
+<body id="blog">
+<nav class="am-g am-g-fixed blog-fixed blog-nav">
+  <div class="am-collapse am-topbar-collapse" id="blog-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav">
+      <li><a href="{:url('Index/index')}">博客首页</a></li>
+      {volist name="allCategory" id="data"}
+      {eq name="id" value="$data.cate_id"}
+      <li class="am-active">
+      <a>{$data.cate_name}</a>
+      </li>
+      {else/}
+      <li>
+      <a href="{:url('Index/categoryArticle',['id' => $data['cate_id']])}" target="_blank">{$data.cate_name}</a>
+      </li>
+      {/eq}
+      {/volist}
+
+      <li><a href="{:url('Index/timeLine')}" target="_blank">时光轴</a></li>
+    </ul>
+  </div>
+</nav>
+<hr>
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-12 am-u-sm-12">
+        {empty name="categoryArticle"}
+        <div style="font-size: 30px;">
+          <center>当前分类没有文章</center>
+        </div>
+        {else /}
+           {volist name="categoryArticle" id="data"}
+            <article class="am-g blog-entry-article">
+              <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+                  <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank"><img src="{$data.art_cover}" class="am-u-sm-12"></a>
+              </div>
+              <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                  <span><a class="blog-color">{$data.art_editor} &nbsp;</a></span>
+                  <span>时间：{$data.art_time} &nbsp;</span>
+                  <span>浏览：{$data.art_view} &nbsp;</span>
+                  <h1><a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_title}</a></h1>
+                  <div style="font-size: 26px;">
+                    <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_show}</a>
+                  </div>
+              </div>
+            </article>
+           {/volist}
+           {$categoryArticle->render()}
+        {/empty}
+    
+    
+    </div>
+
+</div>
+<!-- content end -->
+
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<!-- <script src="assets/js/app.js"></script> -->
+</body>
+</html>

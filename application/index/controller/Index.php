@@ -2,6 +2,7 @@
 namespace app\index\controller;
 use app\index\model\Album;
 use app\index\model\Photos;
+use app\index\model\Message;
 use think\Controller;
 use think\View;
 use think\Validate;
@@ -12,19 +13,36 @@ class Index extends Controller
     	$album = new Album();
 		// 查询数据集 标题，描述，封面字段，是否加密
 		$album_date = $album->field('a_id,a_title,a_description,a_cover,a_encryption,a_question')->select();
+		// 实例化模型
+    	$message = new Message();
+		// 查询数据集 标题，描述，封面字段，是否加密
+		$message_data = $message->field('m_name,m_time,m_content,m_email')->order('m_id','desc')->paginate(5);
 		// 实例化视图类
 		$view = new View();
 		 // 渲染模板输出 并赋值模板变量
-		return $view->fetch('index',['album_date'=>$album_date],['__JS__'    =>  '/controller']);
+		return $view->fetch('index',['album_date'=>$album_date,'message_data'=>$message_data],['__JS__'    =>  '/controller']);
     }
-    public function layer(){
-    	$view = new View();
-    	return $view->fetch('layer');
+    public function message(){
+    	// 获取数据
+    	$data = input('post.');
+    	// 实例化模型
+    	$message = new Message;
+		// 给模型的属性字段赋值
+		$message->m_name = $data['name'];
+		$message->m_email = $data['email'];
+		$message->m_content = $data['content'];
+		$message->m_time = date('Y-m-d H:i:s',time());
+		// 添加数据
+		if($message->save()){
+		// 返回json数据通知
+		return json(["message"=>"留言成功！","ico"=>1]);
+		}
+		return json(["message"=>"留言失败，请稍后再试~","ico"=>5]);
     }
-    public function picture(){
+    public function test(){
     	// var_dump($_FILES);
-    	return '{  "code": 0 ,"msg": "呵呵","data": {    "src": "/static/index/album/cover/1.jpg","title": "图片名称"}}';
-
+    	// return '{  "code": 0 ,"msg": "呵呵","data": {    "src": "/static/index/album/cover/1.jpg","title": "图片名称"}}';
+    	
     }
     public function albumEncryption(){
     		// 获取post过来的数据
@@ -48,7 +66,6 @@ class Index extends Controller
 			}
 			// 否则就返回标记为0，代表验证密码失败
 			return json(["flag"=>"0","message"=>"答案错误！"]);
-
     }
     public function photos(){
     	// 获取post数据
@@ -97,7 +114,7 @@ class Index extends Controller
 			$data .= '{"alt":"' . $alt .'",'. '"pid":' . $value->p_id . ",".'"src":"' . 'http://' . $domain .  $src . '",' . '"thumb":"' . 'http://' .$domain . $thumb . '"},'; 
 		}
 		// 删除最后一个字符逗号
-		$data = substr($data,0,strlen($data)-1); 
+		$data = deleteStringLastChar($data);
 		// 追加title和id以及start
 		$data = '{"title": "你好","id": '.$albumId.',"start": 0,"data": [' . $data . ']}';
 		// 返回数据给前端

@@ -21,8 +21,10 @@ class AlbumController extends Controller
 		$view->album_count = $common->alubmCount();
 		// 获取照片总数
 		$view->photos_count = $common->photosCount();
+		// 获取留言总数
+		$view->message_count = $common->messageCount();
 		// 渲染模板输出
-		return $view->fetch('admin/albumList',['album_date'=>$album_data]);
+		return $view->fetch('admin/webSite/albumList',['album_date'=>$album_data]);
 
 	}
 	// 返回添加相册视图
@@ -35,8 +37,10 @@ class AlbumController extends Controller
 		$view->album_count = $common->alubmCount();
 		// 获取照片总数
 		$view->photos_count = $common->photosCount();
+		// 获取留言总数
+		$view->message_count = $common->messageCount();
 		// 渲染模板输出
-		return $view->fetch('admin/addAlbum');
+		return $view->fetch('admin/webSite/addAlbum');
 		// return redirect('http://www.joker1996.com/admin/index/uploadphotos.html');
 	}
 	// 返回编辑相册视图
@@ -53,10 +57,12 @@ class AlbumController extends Controller
 		$view->album_count = $common->alubmCount();
 		// 获取照片总数
 		$view->photos_count = $common->photosCount();
+		// 获取留言总数
+		$view->message_count = $common->messageCount();
 		// 打包数组数据
 		$data = ["id"=>$album->a_id,"title" => $album->a_title,"desc"=>$album->a_description,"cover"=>$album->a_cover,"encryption"=>$album->a_encryption,"question"=>$album->a_question,"answer"=>$album->a_password,"author"=>$album->a_author];
 		// 渲染模板输出
-		return $view->fetch('admin/editAlbum',$data);
+		return $view->fetch('admin/webSite/editAlbum',$data);
 	}
 	public function deleteAlbumController(){
 		// 获取post过来的数据
@@ -136,7 +142,7 @@ class AlbumController extends Controller
 			return json(["message"=>"图片文件过大，请不要超过1M","ico"=>5]);
 		}
 		// 把当前上传图片的时间精确到秒作为文件名重新赋值给上传文件作为它的新的文件名
-		$date = date('Y-m-dHis',time());
+		$date = date('Y-m-d H:i:s',time());
 		// 获取post过来的数据
 		$data = input('post.');
 		// 加密是否加密，默认不加密
@@ -175,7 +181,7 @@ class AlbumController extends Controller
 		// 给上传的头像重新命名
 		$files["pic"]["name"] = $album_picture_name;
 		//定义上传文件存储位置
-		$path = ROOT_PATH .DS .'public'.DS .'static'.DS .'index'.DS .'album'.DS .'cover' .DS . $files["pic"]["name"];
+		$path = ROOT_PATH .'public'.DS .'static'.DS .'index'.DS .'album'.DS .'cover' .DS . $files["pic"]["name"];
 		$cover = DS .'static'.DS .'index'.DS .'album'.DS .'cover'.DS  .$files["pic"]["name"];
 		// 移动文件到自己建的文件夹下
 		if(move_uploaded_file($files["pic"]["tmp_name"], $path)){

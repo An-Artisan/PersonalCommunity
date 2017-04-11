@@ -28,6 +28,8 @@ class Index extends Controller
 		$view->album_count = $common->alubmCount();
 		// 获取照片总数
 		$view->photos_count = $common->photosCount();
+		// 获取留言总数
+		$view->message_count = $common->messageCount();
 		// 渲染模板输出 并赋值模板变量
 		return $view->fetch('admin/index');
     }

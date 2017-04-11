@@ -35,9 +35,6 @@
                                    <a href="{:url('AlbumController/addAlbum')}">
                                     <i class="am-icon-angle-right"></i>
                                     <span>添加相册</span>
-                                    <i class="tpl-left-nav-content tpl-badge-success">
-               18
-             </i>
                                 <a href="{:url('PhotosController/allPhotos')}" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>查看照片</span>
@@ -46,12 +43,12 @@
                                     </i>
                         
 
-                                        <a href="{:url('Message/messageList')}">
+                                        <a href="{:url('MessageController/messageList')}">
                                             <i class="am-icon-angle-right"></i>
                                             <span>留言列表</span>
                                             <i class="tpl-left-nav-content tpl-badge-primary">
-               5
-             </i>
+                                              {$message_count}
+                                             </i>
 
 
                                         </a>
@@ -68,9 +65,9 @@
                         <ul class="tpl-left-nav-sub-menu" style="display: none;">
                             <li>
 
-                                <a href="{:url('uploadPhotos')}">
+                               <a href="{:url('BlogController/articleList')}" class="active">
                                     <i class="am-icon-angle-right"></i>
-                                    <span>线条表单</span>
+                                    <span>博客列表</span>
                                     <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
                                 </a>
                             </li>

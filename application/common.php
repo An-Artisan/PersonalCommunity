@@ -10,3 +10,119 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+use org\util\pscws4;
+use org\util\phpanalysis;
+use org\util\xdb_r;
+/**
+ * 中文分词系统，获取一段文章标签
+ * @Author   不敢为天下
+ * @DateTime 2017-04-09T17:27:34+0800
+ * @param    [string]                   $title [一段文本]
+ * @return   [array]                           [返回标签组]
+ */
+function get_tags_arr($title)
+{
+        $pscws = new PSCWS4();
+		$pscws->set_dict(EXTEND_PATH. 'org' . DS . 'util' . DS . 'scws' . DS .'dict.utf8.xdb');
+		$pscws->set_rule(EXTEND_PATH. 'org' . DS . 'util' . DS . 'scws' . DS .'rules.utf8.ini');
+		$pscws->set_ignore(true);
+		$pscws->send_text($title);
+		$words = $pscws->get_tops(5);
+		$tags = array();
+		foreach ($words as $val) {
+		    $tags[] = $val['word'];
+		}
+		$pscws->close();
+		return $tags;
+}
+/**
+ * 中文分词系统，获取一段文章关键字
+ * @Author   不敢为天下
+ * @DateTime 2017-04-09T17:29:00+0800
+ * @param    [string]                   $content [一段文本]
+ * @return   [string]                            [返回关键字，逗号分隔]
+ */
+function get_keywords_str($content){
+	//初始化类时不直接加载词典
+    PhpAnalysis::$loadInit = false;
+    //是否预载全部词条 否
+    $pa = new PhpAnalysis('utf-8', 'utf-8', false);
+    //载入词典
+    $pa->LoadDict();
+    //执行分词
+    $pa->SetSource($content);
+ 	// 新词识别 是
+    $pa->unitWord = true;
+	// 开始执行分词操作 岐义处理 是
+    $pa->StartAnalysis(true);
+    // 获取出现频率最高的指定词条数 这里有个BUG 实际数量多1，如果是5 结果就是6
+    return $pa->GetFinallyKeywords(4);
+}
+/**
+ * 从一段文本中获取img标签以及src内容
+ * @Author   不敢为天下
+ * @DateTime 2017-04-09T17:24:27+0800
+ * @param    [string]                   $str [一段文本]
+ * @return   [array]                        [返回一个二维数组 [0][x]代表获取img标签所有，[1][x]代表获取img标签中src中的内容]
+ */
+function getContentImages($str){
+	// 内容匹配的正则表达式
+	$preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
+	// 开始匹配
+	preg_match_all($preg, $str, $imgArr);
+	// 返回匹配成功的数据
+	return $imgArr;
+}
+/**
+ * 删除字符串最后一个字符
+ * @Author   不敢为天下
+ * @DateTime 2017-04-09T23:08:57+0800
+ * @param    [string]                   $str [字符串]
+ * @return   [string]                        [返回处理后的字符串]
+ */
+function deleteStringLastChar($str){
+	$str = substr($str,0,strlen($str)-1); 
+	return $str;
+}
+/**
+ * 删除字符串中图片img标签
+ * @Author   不敢为天下
+ * @DateTime 2017-04-11T19:47:49+0800
+ * @param    [array]                   $arr      [要删除的img标签，是一个数组]
+ * @param    [string]                  $content  [要进行删除img标签的文本内容]
+ * @return   [string]                            [返回删除后的文本内容]
+ */
+function deleteDesignateString($arr,$content){
+	// 循环替换img标签为空
+	foreach ($arr as $key => $value) {
+		$content = str_replace($value,'',$content);
+	}
+	// 返回字符串
+	return $content;
+}
+/**
+ * 截取一段包含有html标签的前n个内容，去除html标签
+ * @Author   不敢为天下
+ * @DateTime 2017-04-11T19:50:20+0800
+ * @param    string                   $string   [要处理的字符串]
+ * @param    integer                  $length   [截取多少个汉字内容]
+ * @param    string                   $ellipsis [最后用...替换]
+ * @return   string                             [返回处理后的字符串]
+ */
+function cutstr_html($string,$length=0,$ellipsis='…'){
+    $string=strip_tags($string);
+    $string=preg_replace('/\n/is','',$string);
+    $string=preg_replace('/ |　/is','',$string);
+    $string=preg_replace('/&nbsp;/is','',$string);
+    preg_match_all("/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/",$string,$string);
+    if(is_array($string)&&!empty($string[0])){
+        if(is_numeric($length)&&$length){
+            $string=join('',array_slice($string[0],0,$length)).$ellipsis;
+        }else{
+            $string=implode('',$string[0]);
+        }
+    }else{
+        $string='';
+    }
+    return $string;
+}

@@ -1,0 +1,154 @@
+<!doctype html>
+<html  xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>博客首页</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="博客首页"/>
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" href="/static/index/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/blog/assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="/static/blog/assets/css/app.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body id="blog">
+
+
+<!-- nav start -->
+<nav class="am-g am-g-fixed blog-fixed blog-nav">
+  <div class="am-collapse am-topbar-collapse" id="blog-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav">
+      <li class="am-active"><a>博客首页</a></li>
+      {volist name="allCategory" id="data"}
+      <li>
+      <a href="{:url('Index/categoryArticle',['id' => $data['cate_id']])}" target="_blank">{$data.cate_name}</a>
+      </li>
+      {/volist}
+
+      <li><a href="{:url('Index/timeLine')}" target="_blank">时光轴</a></li>
+    </ul>
+  </div>
+</nav>
+<hr>
+<!-- nav end -->
+<!-- banner start -->
+<div class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-article-margin">
+    <div data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider='{&quot;controlNav&quot;:false}' >
+    <ul class="am-slides">
+      <li>
+            <img src="/static/blog/assets/i/b1.jpg">
+            
+      </li>
+      <li>
+            <img src="/static/blog/assets/i/b2.jpg">
+           
+      </li>
+      <li>
+            <img src="/static/blog/assets/i/b3.jpg">
+            
+      </li>
+    </ul>
+    </div>
+</div>
+<!-- banner end -->
+
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-8 am-u-sm-12">
+         {volist name="allArticle" id="data"}
+          <article class="am-g blog-entry-article">
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+                <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank"><img src="{$data.art_cover}" class="am-u-sm-12"></a>
+            </div>
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                <span><a class="blog-color">{$data.art_editor} &nbsp;</a></span>
+                <span>时间：{$data.art_time} &nbsp;</span>
+                <span>浏览：{$data.art_view} &nbsp;</span>
+                <h1><a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_title}</a></h1>
+                <div style="font-size: 12px;">
+                  <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_show}</a>
+                </div>
+            </div>
+          </article>
+         {/volist}
+    {$allArticle->render()}
+    </div>
+
+    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>About ME</span></h2>
+            <img src="/static/index/head/head.jpg" alt="about me" class="blog-entry-img" >
+            <p>刘强</p>
+          	<p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+        </div>
+
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h2 class="blog-title"><span>TAG cloud</span></h2>
+            <div class="am-u-sm-12 blog-clear-padding">
+            {volist name="allCategory" id="data"}
+            <a class="blog-tag">{$data.cate_name}</a>
+            {/volist}
+            </div>
+        </div>
+
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-title"><span>文章推荐</span></h2>
+            <ul class="am-list">
+            {volist name="maxView" id="data"}
+              <li><a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_title}</a></li>
+            {/volist}
+            </ul>
+        </div>
+         <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>Contact ME</span></h2>
+            <script type="text/javascript">document.write('<iframe width="150" height="239" frameborder="0" scrolling="no" src="http://widget.weibo.com/relationship/bulkfollow.php?language=zh_cn&uids=5230817298&wide=2&color=C2D9F2,FFFFFF,0082CB,666666&showtitle=1&showinfo=1&sense=0&verified=0&count=1&refer='+encodeURIComponent(location.href)+'&dpc=1"></iframe>')</script>
+            <p>
+                 <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1090035743&website=www.joker1996.com" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+                <a href="http://www.github.com/g1090035743" target="_blank"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
+                <a href="http://www.weibo.com/u/5230817298" target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+                <a  onmouseover="javascript:showImg('a1');" onmouseout="javascript:hideImg('a1');" ><span class="am-icon-weixin am-icon-fw blog-icon"></span></a>
+                <br>
+				<a href="http://wpa.qq.com/msgrd?v=3&uin=1090035743&site=qq&menu=yes" target="_blank"><i class="am-icon-qq am-icon-fw"></i> QQ临时会话</a>
+				<img  style="display: none; position: absolute;z-index: 100;width: 200px; right: 80px;bottom:135px;" id="a1" src="/static/blog/images/WeChat.png">
+            </p>
+        </div>
+    </div>
+    
+</div>
+<!-- content end -->
+
+
+
+  <footer class="blog-footer">
+    <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>    
+  </footer>
+
+
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/static/blog/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/static/blog/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="/static/blog/assets/js/amazeui.min.js"></script>
+<!-- 显示微信二维码 -->
+<script type="text/javascript">
+function showImg(imgid){ document.getElementById(imgid).style.display = "block"; } 
+function hideImg(imgid){ document.getElementById(imgid).style.display = "none";  } 
+</script>
+</body>
+</html>
