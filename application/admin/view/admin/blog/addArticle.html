@@ -51,7 +51,7 @@
                                     <span>留言列表</span>
                                     <i class="tpl-left-nav-content tpl-badge-primary">
                                      {$message_count}
-                                 </i>
+                                    </i>
 
 
                                         </a>
@@ -71,17 +71,16 @@
                                <a href="{:url('BlogController/articleList')}" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>博客列表</span>
-                                    <i class="tpl-left-nav-content tpl-badge-primary">
+                                     <i class="tpl-left-nav-content tpl-badge-success">
+                                    {$article_count}
                                     </i>
                                 </a>
                             </li>
                             <li>
 
-                               <a href="{:url('BlogController/addArticle')}" >
+                               <a href="{:url('BlogController/addArticle')}"  class="active" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>添加文章</span>
-                                    <i class="tpl-left-nav-content tpl-badge-primary">
-                                    </i>
                                 </a>
                             </li>
                             <li>
@@ -95,10 +94,11 @@
                             </li>
                              <li>
 
-                               <a href="{:url('BlogController/categoryList')}" class="active">
+                               <a href="{:url('BlogController/categoryList')}">
                                     <i class="am-icon-angle-right"></i>
                                     <span>分类列表</span>
-                                    <i class="tpl-left-nav-content tpl-badge-primary">
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+                                    {$category_count}
                                     </i>
                                 </a>
                             </li>
@@ -182,7 +182,9 @@
                                 <div class="am-form-group">
                                     <label for="user-intro" class="am-u-sm-3 am-form-label">内容 / Content</label>
                                     <div class="am-u-sm-9">
-                                        <textarea id="demo" style="display: none;"></textarea>
+                                        <textarea id="demo" style="display: none;">
+                                           
+                                        </textarea>
                                         <small>说出你的故事...</small>
                                     </div>
                                 </div>

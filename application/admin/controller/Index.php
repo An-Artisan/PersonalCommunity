@@ -30,6 +30,10 @@ class Index extends Controller
 		$view->photos_count = $common->photosCount();
 		// 获取留言总数
 		$view->message_count = $common->messageCount();
+		// 获取博客文章总数
+		$view->article_count = $common->articleCount();
+		// 获取博客分类总数
+		$view->category_count = $common->categoryCount();
 		// 渲染模板输出 并赋值模板变量
 		return $view->fetch('admin/index');
     }

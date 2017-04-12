@@ -19,6 +19,10 @@ class PhotosController extends Controller
 		$view->photos_count = $common->photosCount();
 		// 获取留言总数
 		$view->message_count = $common->messageCount();
+		// 获取博客文章总数
+		$view->article_count = $common->articleCount();
+		// 获取博客分类总数
+		$view->category_count = $common->categoryCount();
 		// 实例化照片表模型
 		$photos = new Photos();
 		// 获取前九张照片

@@ -19,6 +19,10 @@ class MessageController extends Controller{
 		$view->photos_count = $common->photosCount();
 		// 获取留言总数
 		$view->message_count = $common->messageCount();
+		// 获取博客文章总数
+		$view->article_count = $common->articleCount();
+		// 获取博客分类总数
+		$view->category_count = $common->categoryCount();
 		// 实例化留言表模型
 		$message = new Message();
 		// 获取留言信息

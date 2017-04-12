@@ -59,20 +59,47 @@ function get_keywords_str($content){
     return $pa->GetFinallyKeywords(4);
 }
 /**
- * 从一段文本中获取img标签以及src内容
+ * 从一段文本中获取img标签以及src内容，如果有notString参数，表示不提取含有该参数的img标签
  * @Author   不敢为天下
  * @DateTime 2017-04-09T17:24:27+0800
- * @param    [string]                   $str [一段文本]
- * @return   [array]                        [返回一个二维数组 [0][x]代表获取img标签所有，[1][x]代表获取img标签中src中的内容]
+ * @param    [string]                   $str       [一段文本]
+ * @param    [string]                   $notString [不提取img标签中含有的字符]
+ * @param    [int]                    	$flag 	   [标记，0代表处理array[1],1代表都处理，2不处理]
+ * @return   [array]                               [返回一个二维数组 [0][x]代表获取img标签所有，[1][x]代表获取img标签中src中的内容]
  */
-function getContentImages($str){
+function getContentImages($str,$notString = '',$flag = 0){
 	// 内容匹配的正则表达式
 	$preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
 	// 开始匹配
 	preg_match_all($preg, $str, $imgArr);
-	// 返回匹配成功的数据
+	switch ($flag)
+	{
+	case 0:
+		// 只返回第二个数组的img不含有notString的标签
+	  	foreach($imgArr[1] as $key=>$value){
+				if(strstr($value,$notString)){
+					$key = array_search($value ,$imgArr[1]);
+					array_splice($imgArr[1],$key,1);
+				}
+		}
+	  	break;
+	case 1:
+	    // 返回整个数组的img不含有notString的标签
+		foreach($imgArr as $key=>$value){
+			foreach($value as $key2=>$value2){
+				if(strstr($value2,$notString)){
+					$key = array_search($value2 ,$value);
+					array_splice($value,$key,1);
+				}
+			}
+		}
+	  	break;
+	case 3:
+		break;
+	}
 	return $imgArr;
 }
+
 /**
  * 删除字符串最后一个字符
  * @Author   不敢为天下
@@ -105,7 +132,7 @@ function deleteDesignateString($arr,$content){
  * @Author   不敢为天下
  * @DateTime 2017-04-11T19:50:20+0800
  * @param    string                   $string   [要处理的字符串]
- * @param    integer                  $length   [截取多少个汉字内容]
+ * @param    integer                  $length   [截取多少个汉字内容,0表示截取全部]
  * @param    string                   $ellipsis [最后用...替换]
  * @return   string                             [返回处理后的字符串]
  */

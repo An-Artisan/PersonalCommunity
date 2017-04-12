@@ -64,13 +64,34 @@
                             <span>个人博客</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                       <ul class="tpl-left-nav-sub-menu" style="display: none;">
                             <li>
 
-                               <a href="{:url('BlogController/articleList')}" class="active">
+                               <a href="{:url('BlogController/articleList')}" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>博客列表</span>
-                                    <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+                                    {$article_count}
+                                    </i>
+                                </a>
+                            </li>
+                            <li>
+
+                               <a href="{:url('BlogController/addCategory')}"  >
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>新增分类</span>
+                                    <i class="tpl-left-nav-content tpl-badge-primary">
+                                    </i>
+                                </a>
+                            </li>
+                             <li>
+
+                               <a href="{:url('BlogController/categoryList')}" >
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>分类列表</span>
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+                                    {$category_count}
+                                    </i>
                                 </a>
                             </li>
                         </ul>
@@ -164,12 +185,6 @@
                                         {$vo.a_title}
                                     </div>
                                     <a href="javascript:;" class="tpl-table-images-content-i">
-                                        <div class="tpl-table-images-content-i-info">
-                                            <span class="ico">
-                                    <img src="/static/admin/assets/img/user02.png" alt="">追逐
-                                 </span>
-
-                                        </div>
                                         <span class="tpl-table-images-content-i-shadow"></span>
                                         <img height="300px;" src="{$vo.a_cover}" alt="">
                                     </a>
@@ -179,7 +194,6 @@
                                         </div>
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs tpl-edit-content-btn">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-edit"></span>
                                                 <a style="text-decoration:none;color: #fff;" href="{:url('AlbumController/editAlbum',['id' => $vo['a_id']])}">编辑</a></button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-danger"><span a_id="{$vo.a_id}" name="delete" class="am-icon-trash-o">删除</span></button>

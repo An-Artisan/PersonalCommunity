@@ -23,6 +23,10 @@ class AlbumController extends Controller
 		$view->photos_count = $common->photosCount();
 		// 获取留言总数
 		$view->message_count = $common->messageCount();
+		// 获取博客文章总数
+		$view->article_count = $common->articleCount();
+		// 获取博客分类总数
+		$view->category_count = $common->categoryCount();
 		// 渲染模板输出
 		return $view->fetch('admin/webSite/albumList',['album_date'=>$album_data]);
 
@@ -39,6 +43,10 @@ class AlbumController extends Controller
 		$view->photos_count = $common->photosCount();
 		// 获取留言总数
 		$view->message_count = $common->messageCount();
+		// 获取博客文章总数
+		$view->article_count = $common->articleCount();
+		// 获取博客分类总数
+		$view->category_count = $common->categoryCount();
 		// 渲染模板输出
 		return $view->fetch('admin/webSite/addAlbum');
 		// return redirect('http://www.joker1996.com/admin/index/uploadphotos.html');
@@ -59,6 +67,10 @@ class AlbumController extends Controller
 		$view->photos_count = $common->photosCount();
 		// 获取留言总数
 		$view->message_count = $common->messageCount();
+		// 获取博客文章总数
+		$view->article_count = $common->articleCount();
+		// 获取博客分类总数
+		$view->category_count = $common->categoryCount();
 		// 打包数组数据
 		$data = ["id"=>$album->a_id,"title" => $album->a_title,"desc"=>$album->a_description,"cover"=>$album->a_cover,"encryption"=>$album->a_encryption,"question"=>$album->a_question,"answer"=>$album->a_password,"author"=>$album->a_author];
 		// 渲染模板输出
