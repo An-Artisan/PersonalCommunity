@@ -17,6 +17,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="刘强个人博客"/>
   <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" href="/static/index/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/blog/assets/css/amazeui.min.css">
   <link rel="stylesheet" href="/static/blog/assets/css/app.css">
 </head>
@@ -25,7 +26,7 @@
 <nav class="am-g am-g-fixed blog-fixed blog-nav">
   <div class="am-collapse am-topbar-collapse" id="blog-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav">
-      <li><a href="{:url('Index/index')}">博客首页</a></li>
+      <li><a href="/blog.html">博客首页</a></li>
       {volist name="allCategory" id="data"}
       {eq name="id" value="$data.cate_id"}
       <li class="am-active">
@@ -33,12 +34,10 @@
       </li>
       {else/}
       <li>
-      <a href="{:url('Index/categoryArticle',['id' => $data['cate_id']])}" target="_blank">{$data.cate_name}</a>
+      <a href="/category-{$data['cate_id']}.html" target="_blank">{$data.cate_name}</a>
       </li>
       {/eq}
       {/volist}
-
-      <li><a href="{:url('Index/timeLine')}" target="_blank">时光轴</a></li>
     </ul>
   </div>
 </nav>
@@ -54,15 +53,15 @@
            {volist name="categoryArticle" id="data"}
             <article class="am-g blog-entry-article">
               <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-                  <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank"><img src="{$data.art_cover}" class="am-u-sm-12"></a>
+                  <a href="/readarticle-{$data['art_id']}.html" target="_blank"><img src="{$data.art_cover}" class="am-u-sm-12"></a>
               </div>
               <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
                   <span><a class="blog-color">{$data.art_editor} &nbsp;</a></span>
                   <span>时间：{$data.art_time} &nbsp;</span>
                   <span>浏览：{$data.art_view} &nbsp;</span>
-                  <h1><a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_title}</a></h1>
+                  <h1><a href="/readarticle-{$data['art_id']}.html" target="_blank">{$data.art_title}</a></h1>
                   <div style="font-size: 26px;">
-                    <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_show}</a>
+                    <a href="/readarticle-{$data['art_id']}.html" target="_blank">{$data.art_show}</a>
                   </div>
               </div>
             </article>

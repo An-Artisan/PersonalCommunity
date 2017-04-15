@@ -8,6 +8,7 @@ use app\blog\model\Category;
 use think\Controller;
 use think\View;
 use think\Request;
+use think\Session;
 class Common extends Controller
 {	
 	/**
@@ -69,6 +70,12 @@ class Common extends Controller
 		$category = new Category();
 		// 获取博客分类总数
 		return $category->count('cate_id');
+	}
+	public function middleware(){
+    	// 如果不存在session就跳转
+		if(!Session::has('username')){
+			$this->error("请先登录！",'/login.html');
+		}
 	}
 
 }

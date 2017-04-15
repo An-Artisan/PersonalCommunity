@@ -6,10 +6,12 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <!-- 低版本浏览器兼容显示 -->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Volton - Responsive Mobile Template</title>
-    <meta name="description" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{$title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="{$desc}">
+    <meta name="keywords" content="{$keywords}">
+    <meta name="author" content="{$author}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/index/css/normalize.css">
     <link rel="stylesheet" href="/static/index/css/font-awesome.css">
@@ -56,18 +58,17 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown active"><a href="#">个人网站</a></li>
-        <li><a href="#">个人博客</a></li>
+        <li><a href="{:url('blog/Index/index')}" target="_blank">个人博客</a></li>
         <li><a href="#">心情笔记</a></li>
         <li><a href="#">在线聊天</a></li>
         
       </ul>
      
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><i class="fa fa-github"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-qq"></i></a></li>
-                    <li><a href="#"><i class="fa fa-wechat"></i></a></li>
-                    <li><a href="#"><i class="fa fa-weibo"></i></a></li>
+        <li><a href="http://www.github.com/g1090035743" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://zh-cn.facebook.com/people/Liu-Qiang/100009193469772" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1090035743&website=www.joker1996.com" target="_blank"><i class="fa fa-qq"></i></a></li>
+        <li><a href="http://www.weibo.com/u/5230817298" target="_blank" ><i class="fa fa-weibo"></i></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -79,11 +80,11 @@
                     <div class="col-md-12">
                         <div class="top-section">
                             <div class="profile-image">
-                                <img src="/static/index/img/head.jpg" alt="Volton">
+                                <img src="{$joker[0]->a_photo}" alt="Volton">
                             </div>
                             <div class="profile-content">
-                                <h3 class="profile-title">刘强</h3>
-                                <p class="profile-description">程序员+段子手</p>
+                                <h3 class="profile-title">{$joker[0]->a_author}</h3>
+                                <p class="profile-description">{$joker[0]->a_introduce}</p>
                             </div>
                         </div>
                     </div>
@@ -104,10 +105,10 @@
         <div class="sidebar-menu hidden-xs hidden-sm">
             <div class="top-section">
                 <div class="profile-image">
-                    <img src="/static/index/img/head.jpg" alt="Volton">
+                    <img src="{$joker[0]->a_photo}" alt="Volton">
                 </div>
-                <h3 class="profile-title">刘强</h3>
-                <p class="profile-description">程序员+段子手</p>
+                <h3 class="profile-title">{$joker[0]->a_author}</h3>
+                <p class="profile-description">{$joker[0]->a_introduce}</p>
             </div> 
             <div class="main-navigation">
                 <ul class="navigation">
@@ -119,11 +120,10 @@
             </div> <!-- 首页导航 -->
             <div class="social-icons">
                 <ul>
-                    <li><a href="#"><i class="fa fa-github"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-qq"></i></a></li>
-                    <li><a href="#"><i class="fa fa-wechat"></i></a></li>
-                    <li><a href="#"><i class="fa fa-weibo"></i></a></li>
+                    <li><a href="http://www.github.com/g1090035743" target="_blank"><i class="fa fa-github"></i></a></li>
+                    <li><a href="https://zh-cn.facebook.com/people/Liu-Qiang/100009193469772" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1090035743&website=www.joker1996.com" target="_blank"><i class="fa fa-qq"></i></a></li>
+                    <li><a href="http://www.weibo.com/u/5230817298" target="_blank" ><i class="fa fa-weibo"></i></a></li>
                 </ul>
             </div> <!-- 社交账号链接 -->
         </div> <!-- 侧边栏菜单结束 -->
@@ -231,7 +231,7 @@
                     </div>
                     <div class="row" id="footer">
                         <div class="col-md-12 text-center">
-                            <p class="">© 2015-2017 My Project. All rights reserved | Design by <a href="http://www.joker1996.com">www.joker1996.com</a>
+                            <p class="">{$joker[0]->a_copyright}</a>
                             <br>
                             <img src="/static/index/img/icp.jpg" alt=""  ><a  href="http://www.beianbeian.com/beianxinxi/565ec5c4-fc40-4060-ba09-93bb6239c0e8.html">备案/许可证号：渝ICP备16007281号</a></p>
                         </div>

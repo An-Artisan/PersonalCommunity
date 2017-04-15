@@ -10,6 +10,12 @@ use think\Db;
 use think\Image;
 class BlogController extends Controller 
 {	
+	public function __construct(){
+		// 实例化common类
+		$common = new Common();
+		// 验证是否登录
+		$common->middleware();
+	}
 	public function articleList(){
 		// 获取cate_id
 		$cate_id = Request::instance()->param('id');
@@ -28,7 +34,6 @@ class BlogController extends Controller
 		$category = new Category();
 		// 查询数据集 标题，描述，封面，创建时间字段
 		$category_data = $category->field('cate_id,cate_name')->select();
-
 		
 		// 实例化视图类	
 		$view = new View();

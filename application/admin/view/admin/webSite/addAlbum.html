@@ -7,13 +7,10 @@
 
 
         <div class="tpl-left-nav tpl-left-nav-hover">
-            <div class="tpl-left-nav-title">
-                Amaze UI 列表
-            </div>
             <div class="tpl-left-nav-list">
                 <ul class="tpl-left-nav-menu">
                     <li class="tpl-left-nav-item">
-                        <a href="{:url('index/index')}" class="nav-link ">
+                        <a href="/admin.html" class="nav-link ">
                             <i class="am-icon-home"></i>
                             <span>首页</span>
                         </a>
@@ -27,18 +24,18 @@
                         </a>
                         <ul class="tpl-left-nav-sub-menu" style="display: block;">
                             <li>
-                                <a href="{:url('AlbumController/albumList')}">
+                                <a href="/albumlist.html">
                                     <i class="am-icon-angle-right"></i>
                                     <span>相册管理</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
                                     {$album_count}
                                     </i>
                                 </a>
-                                <a href="{:url('AlbumController/addAlbum')}" class="active">
+                                <a href="/addalbum.html" class="active">
                                     <i class="am-icon-angle-right"></i>
                                     <span>添加相册</span>
                                 
-                                <a href="{:url('PhotosController/allPhotos')}">
+                                <a href="/allphotos.html">
                                     <i class="am-icon-angle-right"></i>
                                     <span>查看照片</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
@@ -46,7 +43,7 @@
                                     </i>
                         
 
-                                        <a href="{:url('MessageController/messageList')}">
+                                        <a href="/messagelist.html">
                                             <i class="am-icon-angle-right"></i>
                                             <span>留言列表</span>
                                             <i class="tpl-left-nav-content tpl-badge-primary">
@@ -65,10 +62,10 @@
                             <span>个人博客</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
-                            <li>
+                       <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                             <li>
 
-                               <a href="{:url('BlogController/articleList')}" >
+                               <a href="/articlelist.html" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>博客列表</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
@@ -78,7 +75,16 @@
                             </li>
                             <li>
 
-                               <a href="{:url('BlogController/addCategory')}"  >
+                               <a href="/addarticle.html" >
+                                    <i class="am-icon-angle-right"></i>
+                                    <span>添加文章</span>
+                                    <i class="tpl-left-nav-content tpl-badge-primary">
+                                    </i>
+                                </a>
+                            </li>
+                            <li>
+
+                               <a href="/addcategory.html"   >
                                     <i class="am-icon-angle-right"></i>
                                     <span>新增分类</span>
                                     <i class="tpl-left-nav-content tpl-badge-primary">
@@ -87,7 +93,7 @@
                             </li>
                              <li>
 
-                               <a href="{:url('BlogController/categoryList')}" >
+                               <a href="/categorylist.html" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>分类列表</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">

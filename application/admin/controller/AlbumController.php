@@ -7,6 +7,12 @@ use think\View;
 use think\Request;
 class AlbumController extends Controller 
 {	
+	public function __construct(){
+		// 实例化common类
+		$common = new Common();
+		// 验证是否登录
+		$common->middleware();
+	}
 	//显示相册列表视图
 	public function albumList(){
 		// 实例化模型

@@ -3,6 +3,8 @@ namespace app\index\controller;
 use app\index\model\Album;
 use app\index\model\Photos;
 use app\index\model\Message;
+use app\index\model\Administrator;
+use app\admin\model\Seo;
 use think\Controller;
 use think\View;
 use think\Validate;
@@ -17,10 +19,23 @@ class Index extends Controller
     	$message = new Message();
 		// 查询数据集 标题，描述，封面字段，是否加密
 		$message_data = $message->field('m_name,m_time,m_content,m_email')->order('m_id','desc')->paginate(5);
-		// 实例化视图类
+		// 实例化模型
+        $admin = new Administrator();
+        // 查询管理员数据
+        $joker = $admin->select();
+        // 实例化模型
+        $seo = new Seo();
+        // 查询个人博客的seo数据
+        $seoData = $seo->where('a_alias','website')->select();
+    	// 实例化视图
 		$view = new View();
+        // 赋值seo信息
+        $view->title = $seoData[0]->a_title;
+        $view->keywords = $seoData[0]->a_keywords;
+        $view->desc = $seoData[0]->a_desc;
+        $view->author = $seoData[0]->a_author;
 		 // 渲染模板输出 并赋值模板变量
-		return $view->fetch('index',['album_date'=>$album_date,'message_data'=>$message_data],['__JS__'    =>  '/controller']);
+		return $view->fetch('index',['album_date'=>$album_date,'message_data'=>$message_data,'joker'=>$joker],['__JS__'    =>  '/controller']);
     }
     public function message(){
     	// 获取数据

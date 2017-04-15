@@ -8,6 +8,12 @@ use think\Request;
 use think\Image;
 class PhotosController extends Controller
 {	
+	public function __construct(){
+		// 实例化common类
+		$common = new Common();
+		// 验证是否登录
+		$common->middleware();
+	}
 	public function allPhotos(){
 		// 实例化视图类	
 		$view = new View();

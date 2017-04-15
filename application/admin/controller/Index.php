@@ -1,9 +1,12 @@
 <?php
 namespace app\admin\controller;
 use app\index\model\Album;
+use app\index\model\Administrator;
 use think\Controller;
 use think\View;
 use think\Request;
+use think\Url;
+use think\Session;
 class Index extends Controller
 {	
 	// 返回登录视图
@@ -14,16 +17,40 @@ class Index extends Controller
 		$view->title = '后台登录界面-刘强个人社区后台登录';
 		$view->keywords = '后台登录,后台管理,后管管理登录界面';
 		$view->desc = "刘强个人社区后台登录界面，用于管理整个社区";
+        // 返回视图
 		return $view->fetch('admin/login');
+    }
+    public function logout(){
+    	// 删除session
+    	Session::delete('username');
+    	// 重定向到登录页面
+    	$this->redirect('/login.html');
+    }
+    public function verify(){
+    	// 实例化模型
+    	$admin = new Administrator();
+    	// 获取信息
+    	$info = $admin->select();
+    	// 判断是否登录成功
+    	if(((Request::instance()->param('username')) == ($info[0]->a_username)) && ((Request::instance()->param('password'))== ($info[0]->a_password))){
+            // 用户名和密码相等就设置session标识
+    		Session::set('username',$info[0]->a_username);
+            // 跳转到后台界面
+    		$this->success("登录成功！",'/admin.html');
+    	}
+    	else{
+            // 验证失败提示，返回前一个页面
+    		$this->error("登录密码错误，请重新登录！");
+    	}
     }
     // 返回后台主页视图
     public function index (){	
     	// 实例化视图类	
 		$view = new View();
-		// $view->title = '牛逼！！！';
-		// $view->desc = "我是描述";
 		// 实例化common类
 		$common = new Common();
+		// 验证是否登录
+		$common->middleware();
 		// 获取相册的总数
 		$view->album_count = $common->alubmCount();
 		// 获取照片总数
@@ -37,5 +64,6 @@ class Index extends Controller
 		// 渲染模板输出 并赋值模板变量
 		return $view->fetch('admin/index');
     }
+
     
 }

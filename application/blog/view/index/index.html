@@ -1,13 +1,12 @@
 <!doctype html>
 <html  xmlns:wb="http://open.weibo.com/wb">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <head>
+  <title>{$title}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="{$desc}">
+  <meta name="keywords" content="{$keywords}">
+  <meta name="author" content="{$author}">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>博客首页</title>
-  <meta name="author" content='刘强,1090035743@qq.com'>
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   <meta name="mobile-web-app-capable" content="yes">
@@ -22,8 +21,6 @@
 </head>
 
 <body id="blog">
-
-
 <!-- nav start -->
 <nav class="am-g am-g-fixed blog-fixed blog-nav">
   <div class="am-collapse am-topbar-collapse" id="blog-collapse">
@@ -31,11 +28,9 @@
       <li class="am-active"><a>博客首页</a></li>
       {volist name="allCategory" id="data"}
       <li>
-      <a href="{:url('Index/categoryArticle',['id' => $data['cate_id']])}" target="_blank">{$data.cate_name}</a>
+      <a href="/category-{$data['cate_id']}.html" target="_blank">{$data.cate_name}</a>
       </li>
       {/volist}
-
-      <li><a href="{:url('Index/timeLine')}" target="_blank">时光轴</a></li>
     </ul>
   </div>
 </nav>
@@ -68,15 +63,15 @@
          {volist name="allArticle" id="data"}
           <article class="am-g blog-entry-article">
             <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-                <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank"><img src="{$data.art_cover}" class="am-u-sm-12"></a>
+                <a href="/readarticle-{$data['art_id']}.html" target="_blank"><img src="{$data.art_cover}" class="am-u-sm-12"></a>
             </div>
             <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
                 <span><a class="blog-color">{$data.art_editor} &nbsp;</a></span>
                 <span>时间：{$data.art_time} &nbsp;</span>
                 <span>浏览：{$data.art_view} &nbsp;</span>
-                <h1><a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_title}</a></h1>
+                <h1><a href="/readarticle-{$data['art_id']}.html" target="_blank">{$data.art_title}</a></h1>
                 <div style="font-size: 12px;">
-                  <a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_show}</a>
+                  <a href="/readarticle-{$data['art_id']}.html" target="_blank">{$data.art_show}</a>
                 </div>
             </div>
           </article>
@@ -87,9 +82,9 @@
     <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
         <div class="blog-sidebar-widget blog-bor">
             <h2 class="blog-text-center blog-title"><span>About ME</span></h2>
-            <img src="/static/index/head/head.jpg" alt="about me" class="blog-entry-img" >
-            <p>刘强</p>
-          	<p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+            <img src="{$joker[0]->a_photo}" alt="about me" class="blog-entry-img" >
+            <p>{$joker[0]->a_author}</p>
+          	<p>{$joker[0]->a_introduce}</p>
         </div>
 
         <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
@@ -105,7 +100,7 @@
             <h2 class="blog-title"><span>文章推荐</span></h2>
             <ul class="am-list">
             {volist name="maxView" id="data"}
-              <li><a href="{:url('Index/readArticle',['id' => $data['art_id']])}" target="_blank">{$data.art_title}</a></li>
+              <li><a href="/readarticle-{$data['art_id']}.html" target="_blank">{$data.art_title}</a></li>
             {/volist}
             </ul>
         </div>
@@ -113,7 +108,7 @@
             <h2 class="blog-text-center blog-title"><span>Contact ME</span></h2>
             <script type="text/javascript">document.write('<iframe width="150" height="239" frameborder="0" scrolling="no" src="http://widget.weibo.com/relationship/bulkfollow.php?language=zh_cn&uids=5230817298&wide=2&color=C2D9F2,FFFFFF,0082CB,666666&showtitle=1&showinfo=1&sense=0&verified=0&count=1&refer='+encodeURIComponent(location.href)+'&dpc=1"></iframe>')</script>
             <p>
-                 <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1090035743&website=www.joker1996.com" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+                 <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1090035743&website=http://www.joker1996.com" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
                 <a href="http://www.github.com/g1090035743" target="_blank"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
                 <a href="http://www.weibo.com/u/5230817298" target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
                 <a  onmouseover="javascript:showImg('a1');" onmouseout="javascript:hideImg('a1');" ><span class="am-icon-weixin am-icon-fw blog-icon"></span></a>
@@ -130,13 +125,8 @@
 
 
   <footer class="blog-footer">
-    <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>    
+    <div class="blog-text-center">{$joker[0]->a_copyright}</div>    
   </footer>
-
-
-
-
-
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="/static/blog/assets/js/jquery.min.js"></script>
 <!--<![endif]-->

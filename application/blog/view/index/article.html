@@ -1,15 +1,12 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="{$articleDetails.art_description}">
-  <meta name="keywords" content="{$articleDetails.art_keywords}">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>{$articleDetails.art_title}</title>
   <meta name="keywords" content="{$articleDetails.art_keywords}">
   <meta name="description" content="{$articleDetails.art_description}">
   <meta name="author" content='刘强,1090035743@qq.com'>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   <link rel="stylesheet" href="/static/common/layui/css/layui.css">
@@ -23,19 +20,27 @@
   <script src="/static/common/jquery-3.1.1.js"></script>
   <script src="/static/common/layer/layer.js"></script>
   <script src="/static/common/layui/layui.js"></script>
+  <script>
+  $(document).ready(function(){
+    url = window.location.href;
+    var shareqq = "http://connect.qq.com/widget/shareqq/index.html?title={$articleDetails.art_title}&url="+url+"&desc={$articleDetails.art_description}&pics=&site={$articleDetails.art_title}";
+    var shareweibo = "http://v.t.sina.com.cn/share/share.php?url="+url+"&title={$articleDetails.art_title}";
+    $('#shareqq').attr('href',shareqq);
+    $('#shareweibo').attr('href',shareweibo);
+   });
+  </script>
 </head>
 <body id="blog-article-sidebar">
 <!-- nav start -->
 <nav class="am-g am-g-fixed blog-fixed blog-nav">
   <div class="am-collapse am-topbar-collapse" id="blog-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav">
-      <li><a href="{:url('Index/index')}">博客首页</a></li>
+      <li><a href="/blog.html">博客首页</a></li>
       {volist name="allCategory" id="data"}
       <li>
-      <a href="{:url('Index/categoryArticle',['id' => $data['cate_id']])}" target="_blank">{$data.cate_name}</a>
+      <a href="/category-{$data['cate_id']}.html" target="_blank">{$data.cate_name}</a>
       </li>
       {/volist}
-      <li><a href="{:url('Index/timeLine')}" target="_blank">时光轴</a></li>
     </ul>
   </div>
 </nav>
@@ -65,13 +70,13 @@
             {$articleDetails.art_tag}
             <hr>
             <!-- 分享给QQ好友 -->
-            <a href="http://connect.qq.com/widget/shareqq/index.html?title=那些年的日子&url=http://blog.joker1996.com/a/33&desc=博客文章详情&pics=&site=刘强个人博客" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+            <a id="shareqq" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
             <!-- 分享到微信 -->
             <a class="jiathis_button_weixin"><span class="am-icon-wechat am-icon-fw blog-icon"></span></a>
             <!-- 分享到微信JS -->
             <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1" charset="utf-8"></script>
             <!-- 分享到微博 -->
-            <a href="http://v.t.sina.com.cn/share/share.php?url=http://blog.joker1996.com&title='文章'" target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+            <a id="shareweibo"  target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon" ></span></a>
           </div>
         </div>
 
@@ -81,8 +86,8 @@
             <img src="/static/blog/assets/i/f15.jpg" alt="" class="blog-author-img am-circle">
           </div>
           <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
-          <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color">不敢为天下</span></h3>
-            <p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+          <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color">{$articleDetails.art_editor}</span></h3>
+            <p>{$introduce}</p>
           </div>
         </div>
         <hr>
@@ -90,12 +95,12 @@
           {empty name="prev"}
           <li class="am-pagination-prev"><a>没有上一篇了</a></li>
           {else /}
-          <li  class="am-pagination-prev" ><a href="{:url('Index/readArticle',['id' => $prev[0]['art_id']])}" target="_blank">{$prev[0]['art_title']}</a></li>
+          <li  class="am-pagination-prev" ><a href="/readarticle-{$prev[0]['art_id']}.html" target="_blank">{$prev[0]['art_title']}</a></li>
           {/empty}
           {empty name="next"}
           <li class="am-pagination-next"> <a>没有下一篇了</a></li>
           {else /}
-          <li class="am-pagination-next" ><a href="{:url('Index/readArticle',['id' => $next[0]['art_id']])}" target="_blank">{$next[0]['art_title']}</a></li>
+          <li class="am-pagination-next" ><a href="/readarticle-{$next[0]['art_id']}.html" target="_blank">{$next[0]['art_title']}</a></li>
           {/empty}
           
         </ul>
@@ -111,7 +116,7 @@
 <!-- content end -->
   
   <footer class="blog-footer">
-    <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>    
+    <div class="blog-text-center">{$copyright}</div>    
   </footer>
 
 
