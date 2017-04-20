@@ -1,0 +1,31 @@
+.cont{
+  overflow: hidden;/*内容超出后隐藏*/
+  text-overflow: ellipsis;/* 超出内容显示为省略号*/
+  white-space: nowrap;/*文本不进行换行*/
+}
+.photo{
+  /*上传的照片不换行*/
+  float:left;  
+  /*固定div高度*/
+  height:180px;
+  /*固定div宽度*/
+  width:180px;
+  /*左边距40px*/
+  margin-left:40px;
+  /*显示边框*/
+  border: 1px solid #F3F3FA;
+}
+.img{
+  /*固定图片高度*/
+  height:150px;
+  /*不能超过父级div的宽度*/
+  max-width:100%;
+}
+.dropdown  img{
+  /*设置图片的宽度*/
+  width:40px;
+  /*设置图片的高度*/
+  height: 30px;
+  /*左边距10px*/
+  margin-left: 10px;
+}
