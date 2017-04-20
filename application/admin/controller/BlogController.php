@@ -154,7 +154,7 @@ class BlogController extends Controller
 		if($isPhotos){
 			// 循环图片用于保存数据
 			foreach ($imagesArr[1] as $key => $value) {
-				$list[] =  [ 'art_id'=>$article->art_id, 'pho_address'=> $value];
+				$list[] =  [ 'art_id'=>$article->art_id, 'pho_address'=> $value, 'pho_filename'=>$imagesArr[2][$key]];
 			}
 			// 实例化表模型
 			$photos = new Photos;

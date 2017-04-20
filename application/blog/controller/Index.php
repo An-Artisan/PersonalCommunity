@@ -91,6 +91,8 @@ class Index extends Controller
         $view->introduce = $joker[0]->a_introduce;
         // 赋值版权信息
         $view->copyright = $joker[0]->a_copyright;
+        // 头像信息
+        $view->photo = $joker[0]->a_photo;
         // 渲染模板输出
         return $view->fetch('article',["articleDetails"=>$articleDetails,"allCategory"=>$allCategory,"next"=>$next,"prev"=>$prev]);
         

@@ -1,13 +1,11 @@
-  {layout name="layout" /}
-  <script>
-        // 定义删除留言控制器地址
-        var deleteCategoryController = '{:url('BlogController/deleteCategory')}';
+{layout name="layout" /}
+<script>
+        // 定义获取添加博客分类控制器地址
+        var blogController = '{:url('SeoController/eidtSeoController')}';
 </script>
-  <div class="tpl-page-container tpl-page-header-fixed">
-
-
+        <div class="tpl-page-container tpl-page-header-fixed">
         <div class="tpl-left-nav tpl-left-nav-hover">
-           
+            
             <div class="tpl-left-nav-list">
                 <ul class="tpl-left-nav-menu">
                     <li class="tpl-left-nav-item">
@@ -19,12 +17,12 @@
 
                     <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-list"></i>
+                            <i class="am-icon-table"></i>
                             <span>个人网站</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
                         </a>
                         <ul class="tpl-left-nav-sub-menu" style="display: none;">
-                            <li>
+                           <li>
                                   <a href="/albumlist.html" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>相册管理</span>
@@ -59,11 +57,11 @@
 
                     <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-table"></i>
+                            <i class="am-icon-wpforms"></i>
                             <span>个人博客</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
                             <li>
 
                                <a href="/articlelist.html" >
@@ -76,16 +74,7 @@
                             </li>
                             <li>
 
-                               <a href="/addarticle.html" >
-                                    <i class="am-icon-angle-right"></i>
-                                    <span>添加文章</span>
-                                    <i class="tpl-left-nav-content tpl-badge-primary">
-                                    </i>
-                                </a>
-                            </li>
-                            <li>
-
-                               <a href="/addcategory.html" >
+                               <a href="/addcategory.html"   >
                                     <i class="am-icon-angle-right"></i>
                                     <span>新增分类</span>
                                     <i class="tpl-left-nav-content tpl-badge-primary">
@@ -94,7 +83,7 @@
                             </li>
                              <li>
 
-                               <a href="/categorylist.html" class="active">
+                               <a href="/categorylist.html" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>分类列表</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
@@ -104,15 +93,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="tpl-left-nav-item">
+                   <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-wpforms"></i>
                             <span>后台管理</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
                             <li>
-                                <a href="/seo.html" >
+                                <a href="/seo.html" class="active">
                                     <i class="am-icon-angle-right"></i>
                                     <span>SEO管理</span>
                                 </a>
@@ -129,66 +118,58 @@
             </div>
         </div>
         <div class="tpl-content-wrapper">
+            
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
                 <li><a href="#">个人博客</a></li>
-                <li class="am-active">分类列表</li>
+                <li class="am-active">修改分类</li>
             </ol>
             <div class="tpl-portlet-components">
                 <div class="portlet-title">
                     <div class="caption font-green bold">
-                        <span class="am-icon-code"></span>分类列表
+                        <span class="am-icon-code"></span> 修改分类
                     </div>
-
-
                 </div>
                 <div class="tpl-block">
-                 
                     <div class="am-g">
-                        <div class="am-u-sm-12">
-                            <form class="am-form">
-                                <table class="am-table am-table-striped am-table-hover table-main">
-                                    <thead>
-                                        <tr>
-                                            <th class="table-id">ID</th>
-                                            <th class="table-title">分类标题</th>
-                                            <th class="table-type">分类标签</th>
-                                            <th class="table-author">分类描述</th>
-                                            <th class="table-set">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {volist name="category_data" id="vo"}
-                                        <tr>
-                                            <td>{$vo.cate_id}</td>
-                                            <td>{$vo.cate_name}</td>
-                                            <td>{$vo.cate_tags}</td>
-                                            <td>{$vo.cate_description}</td>
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>
-                                                        <a style="text-decoration:none;color: green;" href="/editcategory-{$vo['cate_id']}.html">编辑</a></button>
-                                                        <button type="button" cate_id="{$vo.cate_id}" name="delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span>&nbsp;&nbsp;删除</button>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {/volist}
-                                    </tbody>
-                                </table>
-                                <hr>
+                        <div class="tpl-form-body tpl-form-line">
+                            <form class="am-form tpl-form-line-form" id="submitForm">
+                                <div class="am-form-group">
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">分类标题 <span class="tpl-form-line-small-title">Title</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="category_title" name="seo_title" class="tpl-form-input" value="{$seo->a_title}"  placeholder="请输入分类标题">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">分类描述 <span class="tpl-form-line-small-title">Description</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="category_desc" value="{$seo->a_desc}" name="seo_desc" placeholder="输入分类描述">
+                                    </div>
+                                </div>
 
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">分类关键字 <span class="tpl-form-line-small-title">Keywords</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="category_tag" value="{$seo->a_keywords}" name="seo_keywords" placeholder="输入分类关键字，以英文半角逗号分隔(,)">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="button" id="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改SEO</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" value="{$seo->a_id}">
                             </form>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-                <div class="tpl-alert"></div>
+
+
             </div>
 
         </div>
 
     </div>
-<script src="/static/admin/js/deleteCategory.js"></script>
+
+    <script src="/static/admin/js/addCategory.js"></script>

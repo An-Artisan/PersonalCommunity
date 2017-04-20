@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use app\index\model\Album;
 use app\index\model\Administrator;
+use app\blog\model\Photos;
 use think\Controller;
 use think\View;
 use think\Request;
@@ -63,6 +64,24 @@ class Index extends Controller
 		$view->category_count = $common->categoryCount();
 		// 渲染模板输出 并赋值模板变量
 		return $view->fetch('admin/index');
+    }
+    public function clearPhotos(){
+        // 定义文章图片目录
+        $path = ROOT_PATH . 'public' . DS . 'static' . DS . 'blog' . DS . 'articleImages';
+        // 实例化表模型
+        $photos = new Photos();
+        // 查询所有的图片
+        $allPhotos = $photos->select();
+        // 设置一个数组
+        $tablePhoto = [];
+        // 吧所有的图片放进数组
+        foreach ($allPhotos as   $value) {
+            $tablePhoto[] = $value->pho_filename;
+        }
+        // 清楚图片冗余
+        if(recursionSeekFiles($tablePhoto,$path))
+            return json(["message"=>"清楚冗余图片成功！","ico"=>1]);
+        return json(["message"=>"清楚冗余图片失败，请稍后再试！","ico"=>5]);
     }
 
     

@@ -85,13 +85,11 @@ class PhotosController extends Controller
 	public function uploadPhotosController(Request $request){
 		// 获取文件对象
 		$files = $request->file('file');
-		// 获取上传图片的id
-		$id = Request::instance()->param('id');
-		// 获取相册id
-		$a_id = Request::instance()->param('a_id');
-        // 移动到框架应用根目录/public/static/index/album/photos 目录下
-        $info = $files->rule('date')->move(ROOT_PATH . 'public' . DS . 'static' . DS . 'index' . DS . 'album' . DS . 'photos');
-        // 获得处理图片句柄
+		/**
+		 *  这里一定要先把Image裁剪图片的函数写在前面。
+		 *  在上传图片，不然在Linux下会有一个莫名其妙的bug。
+		 */
+		// 获得处理图片句柄
         $image = \think\Image::open($files);
 		// 缩略图 thumb(最大宽度,最大高度,裁剪类型) 1代表等比例裁剪
 		$image->thumb(300, 300, 1); 
@@ -101,6 +99,12 @@ class PhotosController extends Controller
 		$saveName = $request->time() . rand(1000,9999) . '.png';
 		// 保存到指定路径
 		$thumb = $image->save(ROOT_PATH . 'public' . DS . 'static' . DS . 'index' . DS . 'album' . DS . 'thumb' . DS . $saveName);
+		// 获取上传图片的id
+		$id = Request::instance()->param('id');
+		// 获取相册id
+		$a_id = Request::instance()->param('a_id');
+        // 移动到框架应用根目录/public/static/index/album/photos 目录下
+        $info = $files->rule('date')->move(ROOT_PATH . 'public' . DS . 'static' . DS . 'index' . DS . 'album' . DS . 'photos');
         if($info && $thumb){
             // 实例化photos表模型
             $photos = new Photos;

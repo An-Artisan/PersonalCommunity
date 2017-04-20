@@ -77,6 +77,9 @@ class Common extends Controller
 			$this->error("请先登录！",'/login.html');
 		}
 	}
+	
+
+
 
 }
  ?>

@@ -19,7 +19,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -246,7 +246,7 @@ return [
     // 数据库用户名
     'username'    => 'root',
     // 数据库密码
-    'password'    => '',
+    'password'    => 'JokerHosting520',
     // 数据库编码默认采用utf8
     'charset'     => 'utf8',
     // 数据库表前缀

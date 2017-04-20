@@ -63,7 +63,7 @@
                             <span>个人博客</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
                             <li>
 
                                <a href="/articlelist.html" >
@@ -94,7 +94,7 @@
                             </li>
                              <li>
 
-                               <a href="/categorylist.html" class="active">
+                               <a href="/categorylist.html" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>分类列表</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
@@ -110,15 +110,15 @@
                             <span>后台管理</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
                             <li>
-                                <a href="/seo.html" >
+                                <a href="/seo.html" class="active">
                                     <i class="am-icon-angle-right"></i>
                                     <span>SEO管理</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/personal.html" >
+                                <a href="/personal.html">
                                     <i class="am-icon-angle-right"></i>
                                     <span>个人资料</span>
                                 </a>
@@ -158,19 +158,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {volist name="category_data" id="vo"}
+                                        {volist name="seo_data" id="vo"}
                                         <tr>
-                                            <td>{$vo.cate_id}</td>
-                                            <td>{$vo.cate_name}</td>
-                                            <td>{$vo.cate_tags}</td>
-                                            <td>{$vo.cate_description}</td>
+                                            <td>{$vo.a_id}</td>
+                                            <td>{$vo.a_title}</td>
+                                            <td>{$vo.a_desc}</td>
+                                            <td>{$vo.a_keywords}</td>
+                                            <td>{$vo.a_author}</td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
                                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>
-                                                        <a style="text-decoration:none;color: green;" href="/editcategory-{$vo['cate_id']}.html">编辑</a></button>
-                                                        <button type="button" cate_id="{$vo.cate_id}" name="delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span>&nbsp;&nbsp;删除</button>
-                                                        
+                                                        <a style="text-decoration:none;color: green;" href="/editseo-{$vo['a_id']}.html">编辑</a></button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -191,4 +190,3 @@
         </div>
 
     </div>
-<script src="/static/admin/js/deleteCategory.js"></script>

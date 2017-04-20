@@ -13,6 +13,8 @@ use think\Route;
 Route::rule([
     // 个人网站路由
     '/'  =>  'index/Index/index',
+    // 生成远程数据库路由
+    'database' =>  ['index/Create/database',['ext'=>'html']],
     // 个人博客主页路由，后缀必选html
     'blog' =>  ['blog/Index/index',['ext'=>'html']],
     // 博客分类文章路由，id必选，正则匹配数字，后缀必选html
@@ -43,6 +45,12 @@ Route::rule([
     'categorylist' =>  ['admin/BlogController/categoryList',['ext'=>'html']],
     // 后台编辑相册路由，id必选，正则匹配数字，后缀必选html
     'editalbum/:id' =>  ['admin/AlbumController/editAlbum',['ext'=>'html'],['id'=>'\d+']],
+    // SEO列表路由，后缀必选html
+    'seo' =>  ['admin/SeoController/seo',['ext'=>'html']],
+    // 编辑SEO路由，id必选，正则匹配数字，后缀必选html
+    'editseo/[:id]' =>  ['admin/SeoController/editSeo',['ext'=>'html']],
+    // 后台个人资料修改路由，后缀必选html
+    'personal' =>  ['admin/SeoController/personal',['ext'=>'html']],
     // 上传图片层路由，后缀必选html
     'uploadlayer' =>  ['admin/PhotosController/uploadLayer',['ext'=>'html']],
     // 后台登录路由，后缀必选html

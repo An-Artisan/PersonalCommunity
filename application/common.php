@@ -59,17 +59,21 @@ function get_keywords_str($content){
     return $pa->GetFinallyKeywords(4);
 }
 /**
- * 从一段文本中获取img标签以及src内容，如果有notString参数，表示不提取含有该参数的img标签
+ * 从一段文本中获取img标签以及src内容以及alt内容，如果有notString参数，表示不提取含有该参数的img标签
  * @Author   不敢为天下
  * @DateTime 2017-04-09T17:24:27+0800
  * @param    [string]                   $str       [一段文本]
  * @param    [string]                   $notString [不提取img标签中含有的字符]
  * @param    [int]                    	$flag 	   [标记，0代表处理array[1],1代表都处理，2不处理]
- * @return   [array]                               [返回一个二维数组 [0][x]代表获取img标签所有，[1][x]代表获取img标签中src中的内容]
+ * @return   [array]                               [返回一个三维数组 [0][x]代表获取img标签所有，[1][x]代表获取img标签中src中的内容，[2][x]代表获取alt的内容]
  */
 function getContentImages($str,$notString = '',$flag = 0){
+	/* 
+		匹配img和src的正则表达式
+		$preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
+	*/
 	// 内容匹配的正则表达式
-	$preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
+	$preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?alt=[\"|\']?(.*?)[\"|\']?>/i';
 	// 开始匹配
 	preg_match_all($preg, $str, $imgArr);
 	switch ($flag)
@@ -152,4 +156,36 @@ function cutstr_html($string,$length=0,$ellipsis='…'){
         $string='';
     }
     return $string;
+}
+/**
+ * 递归查找文件并删除不存在数组中的文件
+ * @Author   不敢为天下
+ * @DateTime 2017-04-17T19:28:36+0800
+ * @param    [array]                   $images [数组，里面装的图片名]
+ * @param    [String]                   $path   [要查找文件的路径]
+ * @return   [Boolean]                           [始终为true]
+ */
+function recursionSeekFiles($images,$path = '.') {
+	// opendir()返回一个目录句柄,失败返回false
+    $current_dir = opendir($path);  
+    // readdir()返回打开目录句柄中的一个条目，返回文件目录名或文件名
+    while(($file = readdir($current_dir)) !== false) {    
+    	// 构建子目录路径
+        $sub_dir = $path . DIRECTORY_SEPARATOR . $file;    
+        if($file == '.' || $file == '..') {
+            continue;
+        }
+        //如果是目录,进行递归 
+        else if(is_dir($sub_dir)) {    
+            recursionSeekFiles($images,$sub_dir);
+        }
+        //如果是文件,检测该文件是否存在数组中
+        else {   
+        	// 不存在就删除该文件
+            if(!in_array($file,$images)){
+            	unlink($path.DIRECTORY_SEPARATOR.$file);
+            }
+        }
+    }
+    return true;
 }

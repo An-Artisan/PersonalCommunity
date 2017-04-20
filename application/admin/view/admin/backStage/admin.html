@@ -1,15 +1,15 @@
 {layout name="layout" /}
 <script>
         // 定义获取添加相册控制器地址
-        var deleteAlbumController = '{:url('AlbumController/deleteAlbumController')}';
+        var editPersonal = '{:url('SeoController/editPersonalController')}';
 </script>
-<div class="tpl-page-container tpl-page-header-fixed">
+        <div class="tpl-page-container tpl-page-header-fixed">
 
 
         <div class="tpl-left-nav tpl-left-nav-hover">
-           
+            
             <div class="tpl-left-nav-list">
-                 <ul class="tpl-left-nav-menu">
+                <ul class="tpl-left-nav-menu">
                     <li class="tpl-left-nav-item">
                         <a href="/admin.html" class="nav-link ">
                             <i class="am-icon-home"></i>
@@ -23,9 +23,9 @@
                             <span>个人网站</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
                             <li>
-                                <a href="/albumlist.html" class="active">
+                                <a href="/albumlist.html" >
                                     <i class="am-icon-angle-right"></i>
                                     <span>相册管理</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
@@ -104,13 +104,13 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="tpl-left-nav-item">
+                   <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-wpforms"></i>
                             <span>后台管理</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu" style="display: none;">
+                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
                             <li>
                                 <a href="/seo.html" >
                                     <i class="am-icon-angle-right"></i>
@@ -118,7 +118,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/personal.html" >
+                                <a href="/personal.html" class="active">
                                     <i class="am-icon-angle-right"></i>
                                     <span>个人资料</span>
                                 </a>
@@ -128,96 +128,87 @@
                 </ul>
             </div>
         </div>
+
         <div class="tpl-content-wrapper">
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
-                <li><a href="#">个人网站</a></li>
-                <li class="am-active">相册列表</li>
+                <li><a href="#">后台管理</a></li>
+                <li class="am-active">编辑资料</li>
             </ol>
             <div class="tpl-portlet-components">
                 <div class="portlet-title">
                     <div class="caption font-green bold">
-                        <span class="am-icon-code"></span> 相册列表
+                        <span class="am-icon-code"></span> 编辑资料
                     </div>
                 </div>
                 <div class="tpl-block">
                     <div class="am-g">
-                        <div class="am-u-sm-12 am-u-md-6">
-                            <div class="am-btn-toolbar">
-                                <div class="am-btn-group am-btn-group-ls">
-                                    <a><button type="button" id="plus_album" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 添加照片</button></a>
-                                </div>
-                                <div class="am-btn-group am-btn-group-ls">
-                                    <a href="/addalbum.html"><button type="button"  class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增相册</button></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="am-u-sm-12 am-u-md-3">
-                            <div class="am-form-group">
-                                <select data-am-selected="{btnSize: 'sm'}">
-                                  {volist name="album_date" id="vo"}
-                                  <option value="{vo.a_id}">{$vo.a_title}</option>
-                                  {/volist}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-g">
-                        <div class="tpl-table-images">
-                            {volist name="album_date" id="vo"}
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                                <div class="tpl-table-images-content">
-                                    <span class="tpl-i-title">创建时间</span>
-                                    <div class="tpl-table-images-content-i-time">{$vo.a_create_time}</div>
-                                    <div class="tpl-i-title">
-                                        {$vo.a_title}
+                        <div class="tpl-form-body tpl-form-line">
+                            <form class="am-form tpl-form-line-form" id="submitForm" enctype="multipart/form-data">
+                                <div class="am-form-group">
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">
+                                    后台登录用户名<span class="tpl-form-line-small-title">Username</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="username" class="tpl-form-input" name="username" value="{$admin_data[0]->a_username}" placeholder="请输入用户名">
                                     </div>
-                                    <a href="javascript:;" class="tpl-table-images-content-i">
-                                        <span class="tpl-table-images-content-i-shadow"></span>
-                                        <img height="300px;" src="{$vo.a_cover}" alt="">
-                                    </a>
-                                    <div class="tpl-table-images-content-block">
-                                        <div class="tpl-i-font">
-                                            {$vo.a_description}
-                                        </div>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs tpl-edit-content-btn">
-                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-edit"></span>
-                                                <a style="text-decoration:none;color: #fff;" href="editalbum-{$vo['a_id']}.html">编辑</a></button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span a_id="{$vo.a_id}" name="delete" class="am-icon-trash-o">删除</span></button>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">后台登录密码 <span class="tpl-form-line-small-title">Description</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="password" value="{$admin_data[0]->a_password}" name="password" placeholder="输入登录密码">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">管理员头像 <span class="tpl-form-line-small-title">Images</span></label>
+                                    <div class="am-u-sm-9">
+                                        <div class="am-form-group am-form-file">
+                                            <div class="tpl-form-file-img" id="append">
+                                            <img height="300px;" src="{$admin_data[0]->a_photo}">
                                             </div>
+                                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                            <i class="am-icon-cloud-upload"></i> 修改管理员头像
+                                            </button>
+                                            <input id="doc-form-file"   type="file" name="pic" >
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            {/volist}
-
-                            <div class="am-u-lg-12">
-                                <div class="am-cf">
-                                    <div class="am-fr">
-                                       {$album_date->render()}
+                                
+                                 <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">作者 <span class="tpl-form-line-small-title">Author</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="author" value="{$admin_data[0]->a_author}" name="author" placeholder="请输入作者名字">
                                     </div>
                                 </div>
-                                <hr>
-                            </div>
-                        </div>
+                                <div id="encryption" style="display: block;">
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">个人介绍 <span class="tpl-form-line-small-title">Introduce</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="introduce" value="{$admin_data[0]->a_introduce}" name="introduce" placeholder="请输入个人介绍">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">网站版权信息 <span class="tpl-form-line-small-title">Copyright</span></label>
+                                    <div class="am-u-sm-9">
+                                        <textarea name="copyright" id="copyright">{$admin_data[0]->a_copyright}</textarea> 
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="button" id="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改资料</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" value="{$admin_data[0]->a_id}">
+                            </form>
 
+                        </div>
                     </div>
                 </div>
-                <div class="tpl-alert"></div>
+
+
             </div>
+
         </div>
+
     </div>
-    <script> 
-    $("#plus_album").on("click",function(){
-        layer.open({
-            type: 2,
-            title: '添加照片----上传过程中请勿关闭窗口',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['90%', '90%'],
-            content: "/uploadlayer.html" //iframe的url
-            }); 
-    });
-    </script>
-    <script src="/static/admin/js/deleteAlbum.js"></script>
+    <script src="/static/admin/js/editPersonal.js"></script>
