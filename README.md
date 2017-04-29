@@ -1,48 +1,94 @@
 刘强个人社区
 ===============
 基于thinphp5+ bootstrap + layer + layui + workerman + redis +  js + jq的开发
+<br>
 这里有图像处理，依赖ThinkPHP5的图像处理类库 composer require topthink/think-image即可
+<br>
 官方文档：http://www.kancloud.cn/manual/thinkphp5/177530
+<br>
 后台管理模版：根据 “妹子UI” 模版更改
+<br>
 妹子UI官网：http://amazeui.org/
+<br>
 依赖环境： 
+<br>
 CentOS 7.0
+<br>
 php 7.0
+<br>
 redis-3.2.8
+<br>
 php依赖扩展：event，redis，openssl，gd，openssl，mysqli，mbstring，sockets
+<br>
 mariadb-5.5.52(CentOS 7.0之后抛弃mysql，用mariadb代替mysql)
+<br>
 Apache/2.4.6
+<br>
 Workerman3.4.1 + GatewayWorker3.0.2 
+<br>
 这里主要用wokerman做一个单项推送，依赖GatewayClient
+<br>
 GatewayClient下载地址 https://github.com/walkor/GatewayClient 
+<br>
 官网参考 [WorkerMan](http://www.workerman.net/)
+<br>
 一、个人网站
+<br>
 	1：个人相册以及实现第三方链接
+	<br>
 	2：留言板整合layui编辑器
+	<br>
 	3：递归ajax+FormData()实现多张图片同时上传
+	<br>
 	4：个人相册、照片，实现删除，更新。
+	<br>
 二、个人博客
+<br>
 	1：博客分类
+	<br>
 	2：博客分享至第三方网站
+	<br>
 	3：博客文章自动提取关键字和标签
+	<br>
 	4：支持图片上传，更改文章图片
+	<br>
 	5：定期清除图片冗余数据
+	<br>
 三、聊天室
+<br>
 	使用websocket协议 官方文档：https://www.w3.org/TR/websockets/
+	<br>
 	压力相关：
+	<br>
 		操作系统	CentOS 7.0 64位
+		<br>
 		CPU	1核
+		<br>
 		内存	1GB
+		<br>
 		系统盘	20GB(本地磁盘)
+		<br>
 		公网带宽	1Mbps
+		<br>
+	功能的实现：
+	<br>
 	1：实现群聊
+	<br>
 	2：实现单聊
+	<br>
 	3：实现语音发送(chrome浏览器不支持麦克风的打开，请用Firefox浏览器)
+	<br>
 	4：实现图片发送
+	<br>
 	5：实现用户退出提示推送
+	<br>
 	6：实现用户上线提示推送
+	<br>
 	7：第三方登录的整合(百度，腾讯，新浪)
+	<br>
 	逻辑实现过程：
+	<br>
+
 	1、网站页面建立与GatewayWorker的websocket连接
 
 	2、GatewayWorker发现有页面发起连接时，将对应连接的client_id发给网站页面
