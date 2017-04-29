@@ -1,129 +1,67 @@
-ThinkPHP 5.0
+刘强个人社区
 ===============
+基于thinphp5+ bootstrap + layer + layui + workerman + redis +  js + jq的开发
+这里有图像处理，依赖ThinkPHP5的图像处理类库 composer require topthink/think-image即可
+官方文档：http://www.kancloud.cn/manual/thinkphp5/177530
+后台管理模版：根据 “妹子UI” 模版更改
+妹子UI官网：http://amazeui.org/
+依赖环境： 
+CentOS 7.0
+php 7.0
+redis-3.2.8
+php依赖扩展：event，redis，openssl，gd，openssl，mysqli，mbstring，sockets
+mariadb-5.5.52(CentOS 7.0之后抛弃mysql，用mariadb代替mysql)
+Apache/2.4.6
+Workerman3.4.1 + GatewayWorker3.0.2 
+这里主要用wokerman做一个单项推送，依赖GatewayClient
+GatewayClient下载地址 https://github.com/walkor/GatewayClient 
+官网参考 [WorkerMan](http://www.workerman.net/)
+一、个人网站
+	1：个人相册以及实现第三方链接
+	2：留言板整合layui编辑器
+	3：递归ajax+FormData()实现多张图片同时上传
+	4：个人相册、照片，实现删除，更新。
+二、个人博客
+	1：博客分类
+	2：博客分享至第三方网站
+	3：博客文章自动提取关键字和标签
+	4：支持图片上传，更改文章图片
+	5：定期清除图片冗余数据
+三、聊天室
+	使用websocket协议 官方文档：https://www.w3.org/TR/websockets/
+	压力相关：
+		操作系统	CentOS 7.0 64位
+		CPU	1核
+		内存	1GB
+		系统盘	20GB(本地磁盘)
+		公网带宽	1Mbps
+	1：实现群聊
+	2：实现单聊
+	3：实现语音发送(chrome浏览器不支持麦克风的打开，请用Firefox浏览器)
+	4：实现图片发送
+	5：实现用户退出提示推送
+	6：实现用户上线提示推送
+	7：第三方登录的整合(百度，腾讯，新浪)
+	逻辑实现过程：
+	1、网站页面建立与GatewayWorker的websocket连接
 
-[![Total Downloads](https://poser.pugx.org/topthink/think/downloads)](https://packagist.org/packages/topthink/think)
-[![Latest Stable Version](https://poser.pugx.org/topthink/think/v/stable)](https://packagist.org/packages/topthink/think)
-[![Latest Unstable Version](https://poser.pugx.org/topthink/think/v/unstable)](https://packagist.org/packages/topthink/think)
-[![License](https://poser.pugx.org/topthink/think/license)](https://packagist.org/packages/topthink/think)
+	2、GatewayWorker发现有页面发起连接时，将对应连接的client_id发给网站页面
 
-ThinkPHP5在保持快速开发和大道至简的核心理念不变的同时，PHP版本要求提升到5.4，对已有的CBD模式做了更深的强化，优化核心，减少依赖，基于全新的架构思想和命名空间实现，是ThinkPHP突破原有框架思路的颠覆之作，其主要特性包括：
+	3、网站页面收到client_id后触发一个ajax请求将client_id发到mvc后端
 
- + 基于命名空间和众多PHP新特性
- + 核心功能组件化
- + 强化路由功能
- + 更灵活的控制器
- + 重构的模型和数据库类
- + 配置文件可分离
- + 重写的自动验证和完成
- + 简化扩展机制
- + API支持完善
- + 改进的Log类
- + 命令行访问支持
- + REST支持
- + 引导文件支持
- + 方便的自动生成定义
- + 真正惰性加载
- + 分布式环境支持
- + 更多的社交类库
+	4、mvc后端bind.php收到client_id后利用GatewayClient调用Gateway::bindUid($client_id, $uid)将client_id与当前uid(用户id或者客户端唯一标识)绑定。利用Gateway::joinGroup($client_id, $group_id)将client_id加入到对应分组
 
-> ThinkPHP5的运行环境要求PHP5.4以上。
+	5、把分组信息存储在mysql数据库，便于客户端下来通知另外的客户端
 
-详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
+	6、页面发起的所有请求都直接post/get到mvc框架统一处理，包括发送消息
 
-## 目录结构
+	7、mvc框架处理业务过程中需要向某个uid或者某个群组发送数据时，用redis存储聊天数据，避免用mysql数据库存储数据，高并发下，会导致mysql服务器的崩溃。直接调用GatewayClient的接口Gateway::sendToUid Gateway::sendToGroup 等发送
+	
+	8、如果是语音或者图片，用FileReader.readAsDataURL()压缩语音或者图片成base64编码，然后经过GatewayClient接口转发给其他用户，这里语音或者图片没有保存至数据库，原因是base64编码过长，太占用数据库的资源。本还有一种办法，把语音或者图片打包成文件上传至服务器，不过这一种办法不太建议使用，这里的应用场景是即时通讯，如果用户频繁发送图片或者语音会导致磁盘I/O的开销过大(上传图片或者语音文件不得写入磁盘读取磁盘嘛~)。
+	
+	9、用户刷新页面在获取数据，从redis数据库获取数据，这里redis设置的是100条记录就往mysql数据库写入数据。避免了频繁的访问mysql服务器
 
-初始的目录结构如下：
+	10、用户下线，在GatewayWorker的Event.php中有一个onClose回调函数。有一个$client_id参数，根据$client_id去查询数据库属于哪一个分组，然后通过Gateway::sendToGroup 通知对应的分组，该客户端已经下线。如果是在全体分组里，直接调用Gateway::sendToAll
+	详细开发文档参考 [GatewayWorker2.x 3.x 手册](http://www.workerman.net/gatewaydoc/)
 
-~~~
-www  WEB部署目录（或者子目录）
-├─application           应用目录
-│  ├─common             公共模块目录（可以更改）
-│  ├─module_name        模块目录
-│  │  ├─config.php      模块配置文件
-│  │  ├─common.php      模块函数文件
-│  │  ├─controller      控制器目录
-│  │  ├─model           模型目录
-│  │  ├─view            视图目录
-│  │  └─ ...            更多类库目录
-│  │
-│  ├─command.php        命令行工具配置文件
-│  ├─common.php         公共函数文件
-│  ├─config.php         公共配置文件
-│  ├─route.php          路由配置文件
-│  ├─tags.php           应用行为扩展定义文件
-│  └─database.php       数据库配置文件
-│
-├─public                WEB目录（对外访问目录）
-│  ├─index.php          入口文件
-│  ├─router.php         快速测试文件
-│  └─.htaccess          用于apache的重写
-│
-├─thinkphp              框架系统目录
-│  ├─lang               语言文件目录
-│  ├─library            框架类库目录
-│  │  ├─think           Think类库包目录
-│  │  └─traits          系统Trait目录
-│  │
-│  ├─tpl                系统模板目录
-│  ├─base.php           基础定义文件
-│  ├─console.php        控制台入口文件
-│  ├─convention.php     框架惯例配置文件
-│  ├─helper.php         助手函数文件
-│  ├─phpunit.xml        phpunit配置文件
-│  └─start.php          框架入口文件
-│
-├─extend                扩展类库目录
-├─runtime               应用的运行时目录（可写，可定制）
-├─vendor                第三方类库目录（Composer依赖库）
-├─build.php             自动生成定义文件（参考）
-├─composer.json         composer 定义文件
-├─LICENSE.txt           授权说明文件
-├─README.md             README 文件
-├─think                 命令行入口文件
-~~~
-
-> router.php用于php自带webserver支持，可用于快速测试
-> 切换到public目录后，启动命令：php -S localhost:8888  router.php
-> 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。
-
-## 命名规范
-
-`ThinkPHP5`遵循PSR-2命名规范和PSR-4自动加载规范，并且注意如下规范：
-
-### 目录和文件
-
-*   目录不强制规范，驼峰和小写+下划线模式均支持；
-*   类库、函数文件统一以`.php`为后缀；
-*   类的文件名均以命名空间定义，并且命名空间的路径和类库文件所在路径一致；
-*   类名和类文件名保持一致，统一采用驼峰法命名（首字母大写）；
-
-### 函数和类、属性命名
-*   类的命名采用驼峰法，并且首字母大写，例如 `User`、`UserType`，默认不需要添加后缀，例如`UserController`应该直接命名为`User`；
-*   函数的命名使用小写字母和下划线（小写字母开头）的方式，例如 `get_client_ip`；
-*   方法的命名使用驼峰法，并且首字母小写，例如 `getUserName`；
-*   属性的命名使用驼峰法，并且首字母小写，例如 `tableName`、`instance`；
-*   以双下划线“__”打头的函数或方法作为魔法方法，例如 `__call` 和 `__autoload`；
-
-### 常量和配置
-*   常量以大写字母和下划线命名，例如 `APP_PATH`和 `THINK_PATH`；
-*   配置参数以小写字母和下划线命名，例如 `url_route_on` 和`url_convert`；
-
-### 数据表和字段
-*   数据表和字段采用小写加下划线方式命名，并注意字段名不要以下划线开头，例如 `think_user` 表和 `user_name`字段，不建议使用驼峰和中文作为数据表字段命名。
-
-## 参与开发
-请参阅 [ThinkPHP5 核心框架包](https://github.com/top-think/framework)。
-
-## 版权信息
-
-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
-
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
-
-版权所有Copyright © 2006-2017 by ThinkPHP (http://thinkphp.cn)
-
-All rights reserved。
-
-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
-
-更多细节参阅 [LICENSE.txt](LICENSE.txt)
+    欢迎学习交流。QQ：1090035743
