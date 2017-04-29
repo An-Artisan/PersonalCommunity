@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:78:"E:\WebRoot\PersonalCommunity\public/../application/index\view\index\index.html";i:1492241923;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:78:"E:\WebRoot\PersonalCommunity\public/../application/index\view\index\index.html";i:1492681462;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -60,8 +60,8 @@
       <ul class="nav navbar-nav">
         <li class="dropdown active"><a href="#">个人网站</a></li>
         <li><a href="<?php echo url('blog/Index/index'); ?>" target="_blank">个人博客</a></li>
-        <li><a href="#">心情笔记</a></li>
-        <li><a href="#">在线聊天</a></li>
+    <!--     <li><a href="#">心情笔记</a></li>
+        <li><a href="#">在线聊天</a></li> -->
         
       </ul>
      

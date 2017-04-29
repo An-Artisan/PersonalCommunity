@@ -31,7 +31,7 @@
      * @return   {[boolean]}                          [照片不合法就结束函数]
      */
   	function selfiles(imgId,appendId){
-  	// 获取文件对象
+  	  // 获取文件对象
       var pic = $("#file").get(0).files;
       // 循环该文件对象
       for(var i = 0;i < pic.length;i++){

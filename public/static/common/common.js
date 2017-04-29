@@ -298,3 +298,24 @@ function getNowFormatDate() {
     return currentdate;
     // 返回给调用函数
 }
+/**
+ * 计算字符串长度(英文占1个字符，中文汉字占2个字符)
+ * @Author   不敢为天下
+ * @DateTime 2017-04-29T22:06:31+0800
+ * @param    {[string]}                 str [字符串]
+ * @return   {[int]}                     [字符串的长度]
+ */
+function strlen(str){  
+    var len = 0;  
+    for (var i=0; i<str.length; i++) {   
+     var c = str.charCodeAt(i);   
+    //单字节加1   
+     if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {   
+       len++;   
+     }   
+     else {   
+      len+=2;   
+     }   
+    }   
+    return len;  
+}  

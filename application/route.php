@@ -11,12 +11,17 @@
 
 use think\Route;
 Route::rule([
+
     // 个人网站路由
     '/'  =>  'index/Index/index',
     // 生成远程数据库路由
     'database' =>  ['index/Create/database',['ext'=>'html']],
     // 个人博客主页路由，后缀必选html
     'blog' =>  ['blog/Index/index',['ext'=>'html']],
+    // 聊天室路由，后缀必选html
+    'chat' =>  ['chat/Index/index',['ext'=>'html']],
+    // 发送消息路由，后缀必选html
+    'send' =>  ['chat/Index/sendMessage',['ext'=>'html']],
     // 博客分类文章路由，id必选，正则匹配数字，后缀必选html
     'category/:id' =>  ['blog/Index/categoryArticle',['ext'=>'html'],['id'=>'\d+']],
     // 博客文章路由，id必选，正则匹配数字，后缀必选html
@@ -56,5 +61,20 @@ Route::rule([
     // 后台登录路由，后缀必选html
     'login' =>  ['admin/Index/login',['ext'=>'html']],
     // 'verify' =>  ['admin/Index/verify',['ext'=>'html']],
+    'voice' =>  ['chat/Index/voice',['ext'=>'html']],
+    // 聊天室登录界面
+    'login_chat' =>  ['chat/Index/login',['ext'=>'html']],
+    // 聊天室注册界面
+    'register' =>  ['chat/Index/register',['ext'=>'html']],
+    // 聊天室用户登录验证用户控制器
+    'verifyUserInfo' =>  ['chat/Index/verifyUserInfo',['ext'=>'html']],
+    // 聊天室注册空气之
+    'registerController' =>  ['chat/Index/registerController',['ext'=>'html']],
+    // 第三方百度登录控制器
+    'baidu_login' =>  ['chat/ThirdPartyLogin/baiduLogin',['ext'=>'html']],
+    // 第三方新浪登录控制器
+    'sina_login' =>  ['chat/ThirdPartyLogin/sinaLogin',['ext'=>'html']],
+    // 第三方百度登录控制器
+    'getTencentAccessToken' =>  ['chat/ThirdPartyLogin/getTencentAccessToken',['ext'=>'html']],
 
 ],'','GET|POST');

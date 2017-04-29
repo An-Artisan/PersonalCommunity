@@ -189,3 +189,59 @@ function recursionSeekFiles($images,$path = '.') {
     }
     return true;
 }
+/**
+ * 截取两个指定字符之间的字符串内容
+ * @Author   不敢为天下
+ * @DateTime 2017-04-29T16:58:39+0800
+ * @param    [string]                   $kw1   [要截取的字符串]
+ * @param    [string]                   $mark1 [指定字符1]
+ * @param    [string]                   $mark2 [指定字符2]
+ * @return   [string]                          [返回截取的字符串内容]
+ */
+function getNeedBetween($kw1,$mark1,$mark2){
+	$kw = $kw1;
+	$kw = '123'. $kw . '123';
+	$st =stripos($kw,$mark1);
+	$ed =stripos($kw,$mark2);
+	if(($st==false||$ed==false)||$st>=$ed)
+	return 0;
+	$kw=substr($kw,($st+1),($ed-$st-1));
+	return $kw;
+}
+/**
+ * 模拟POST请求获取第三方网站接口数据
+ * @Author   不敢为天下
+ * @DateTime 2017-04-29T15:09:38+0800
+ * @param    [String]                   $url [请求接口网址]
+ * @return   [Array]                         [返回第三方接口数据]
+ */
+function getHttpPostData($url){
+
+        $ch = curl_init();
+        // 请求URL地址
+      	curl_setopt($ch, CURLOPT_URL, $url);
+     	// 以POST方式请求URL地址
+      	curl_setopt($ch, CURLOPT_POST, 1);
+        /*
+            禁用后cURL将终止从服务端进行验证。使用CURLOPT_CAINFO选项设置证书使用CURLOPT_CAPATH选项设置证书目录 如果CURLOPT_SSL_VERIFYPEER(默认值为2)被启用，CURLOPT_SSL_VERIFYHOST需要被设置成TRUE否则设置为FALSE。
+            自cURL 7.10开始默认为TRUE。从cURL 7.10开始默认绑定安装。
+        */
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        /*
+            将curl_exec()获取的信息以文件流的形式返回，而不是直接输出。
+         */
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        // 得到数据
+        $data = curl_exec($ch);
+        // 如果是FALSE的话，代表请求网址失败
+        if($data === FALSE){
+            return false;
+        }
+        // 转换json格式为数组
+        $data = json_decode($data,TRUE);
+        // 关闭连接
+        curl_close($ch);
+        // 返回数据
+        return $data;
+}
