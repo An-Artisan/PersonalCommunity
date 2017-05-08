@@ -20,6 +20,8 @@ Route::rule([
     'blog' =>  ['blog/Index/index',['ext'=>'html']],
     // 聊天室路由，后缀必选html
     'chat' =>  ['chat/Index/index',['ext'=>'html']],
+    // 聊天室主页，group必选，正则匹配字母，后缀必选html。
+    'home/:group' =>  ['chat/Index/chatRoom',['ext'=>'html'],['group'=>'^[A-Za-z]+$']],
     // 发送消息路由，后缀必选html
     'send' =>  ['chat/Index/sendMessage',['ext'=>'html']],
     // 博客分类文章路由，id必选，正则匹配数字，后缀必选html
@@ -65,16 +67,16 @@ Route::rule([
     // 聊天室登录界面
     'login_chat' =>  ['chat/Index/login',['ext'=>'html']],
     // 聊天室注册界面
-    'register' =>  ['chat/Index/register',['ext'=>'html']],
+    'register' =>  ['chat/Register/register',['ext'=>'html']],
     // 聊天室用户登录验证用户控制器
-    'verifyUserInfo' =>  ['chat/Index/verifyUserInfo',['ext'=>'html']],
-    // 聊天室注册空气之
-    'registerController' =>  ['chat/Index/registerController',['ext'=>'html']],
+    'verifyUserInfo' =>  ['chat/Register/verifyUserInfo',['ext'=>'html']],
+    // 聊天室注册控制器
+    'registerController' =>  ['chat/Register/registerController',['ext'=>'html']],
     // 第三方百度登录控制器
     'baidu_login' =>  ['chat/ThirdPartyLogin/baiduLogin',['ext'=>'html']],
     // 第三方新浪登录控制器
     'sina_login' =>  ['chat/ThirdPartyLogin/sinaLogin',['ext'=>'html']],
-    // 第三方百度登录控制器
-    'getTencentAccessToken' =>  ['chat/ThirdPartyLogin/getTencentAccessToken',['ext'=>'html']],
+    // 第三方腾讯登录控制器
+    'tencent_login' =>  ['chat/ThirdPartyLogin/tencentLogin',['ext'=>'html']],
 
 ],'','GET|POST');

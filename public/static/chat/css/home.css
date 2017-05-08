@@ -1,0 +1,57 @@
+body{
+    background-color: black;
+}
+.container .row .span1,.span2,.span3,.span4,.span5,.span6,.span7,.span8,.span9,.span10,.span11,.span12{
+    background-color: #ccc;
+}
+.container{
+    margin-top:20px;
+}
+.span4,.span8{
+    height:600px;
+    /*border: 1px red solid;*/
+}
+.span8{
+    background: white;
+    padding:0px 10px;
+}
+.left,.right{
+    width:100%;
+    overflow:auto;
+    text-align: left;
+}
+.left{
+    height:548px;
+}
+.right{
+    height:305px;
+    border-bottom:1px solid #ccc;
+}
+.right-bottom{
+    margin:5px 0px;
+}
+.voice{
+    margin:5px 0px;
+    padding:5px 20px 5px 0px;
+    height:30px;
+    line-height:30px;
+}
+.db{
+    height:20px;.
+}
+.tal{
+    text-align: left;
+    margin-bottom: 10px;
+}
+.tar{
+    clear:both;
+    text-align: right;
+}
+/*.db{*/
+    /*display: block;*/
+/*}*/
+.dn{
+    display: none;
+}
+
+

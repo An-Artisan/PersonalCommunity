@@ -1,0 +1,83 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\home.html";i:1494254511;}*/ ?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/chat/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/chat/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/static/chat/css/home.css">
+    <link rel="stylesheet" href="/static/common/layui/css/layui.css">
+    <script src="/static/common/jquery-3.1.1.js"></script>
+    <script src="/static/common/bootstrap.js"></script>
+    <script src="/static/common/layer/layer.js"></script>
+    <script src="/static/common/layui/layui.js"></script>
+    <script src="/static/common/common.js"></script>
+    <script>
+        var bind = "<?php echo url('chat/Index/bind'); ?>";
+        var send_message = "<?php echo url('chat/SendMessage/sendMessage'); ?>";
+        var upload_photo = "<?php echo url('chat/SendMessage/uploadPhoto'); ?>";
+    </script>
+   
+</head>
+<body>
+<div class="container">
+    <div class="row-fluid align-center">
+        <div class="span3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="">在线用户列表</a></li>
+            </ul>
+            <div class="left" data-spy="scroll" data-target="#navbar-example" data-offset="0">
+            <ul id="user_list" class="nav nav-pills nav-stacked">
+                <li role="presentation"><a aria-controls="home" role="tab" data-toggle="tab"><img src="/static/chat/img/baidu.png" alt="">Home</a></li>
+                <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                <li role="presentation"><a aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                <li role="presentation"><a aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            </ul>
+            
+            </div>
+        </div>
+        <div class="span9" style="margin-left: 0px;">
+            <ul class="navi nav nav-tabs">
+                <li id="chat"><a href="/home-chat.html">闲聊</a></li>
+                <li id="php"><a href="/home-php.html">PHP</a></li>
+                <li id="c"><a href="/home-c.html">C/C++</a></li>
+                <li id="game"><a href="/home-game.html">游戏</a></li>
+                <li id="html"><a href="/home-html.html">HTML5</a></li>
+                <li id="python"><a href="/home-pathon.html">Python3</a></li>
+                <li style="float: right;"><a><img id="user_head" style="border-radius: 50%;"  width="33" src="<?php echo \think\Session::get('user_head'); ?>" alt="">
+                <span id="username"><?php echo \think\Session::get('username'); ?></span>
+                </a></li>
+
+            </ul>
+
+            <div class="right" id="main_content" data-spy="scroll" data-target="#navbar-example" data-offset="0">
+               
+            </div>
+            <div class="voice">
+                <span id="noticeVoice"><b style="color: #00A000;">●</b>录音已关闭</span>
+                <button class="btn" disabled="disabled" id="cancel" style="float: right;">取消</button>
+                <button class="btn" disabled="disabled" id="sendVoice" style="float: right;">发送</button>
+            </div>
+            
+            <form action="" class="form-horizontal">
+                <textarea id="demo" style="display: none;"></textarea>
+                <button type="button" id="send_message"  class="btn btn-primary">发送</button>
+                <select id="send_list" class="form-control">
+                  <option>所有人</option>
+                  <option>Home</option>
+                  <option>Profile</option>
+                  <option>Messages</option>
+                  <option>Settings</option>
+                </select>
+                <i class="icon-volume-up right-bottom"></i>
+            </form>
+        </div>
+    </div>
+</div>
+ <script src="/static/chat/js/chat-main.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:80:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\register.html";i:1493483023;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:80:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\register.html";i:1494237657;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<script>
-		  var registerVerifyUserName = "<?php echo url('Index/registerVerifyUserName'); ?>";
+		  var registerVerifyUserName = "<?php echo url('Register/registerVerifyUserName'); ?>";
 		</script> 
 		<script src="/static/common/jquery-3.1.1.js"></script>
 		<script src="/static/common/common.js"></script>

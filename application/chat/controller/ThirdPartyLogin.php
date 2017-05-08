@@ -12,13 +12,13 @@ use org\util\Gateway;
 class ThirdPartyLogin extends Controller
 {	
 	// 腾讯QQ第三方登录
-	public function getTencentAccessToken(){
+	public function tencentLogin(){
 		//应用的APPID
 		$app_id = "101399466";
 		//应用的APPKEY
 		$app_secret = "dd69533969da0e0b2db991626863325d";
 		//成功授权后的回调地址
-		$my_url = "http://www.joker1996.com/getTencentAccessToken.html";
+		$my_url = "http://www.joker1996.com/tencent_login.html";
 		//Step1：获取Authorization Code
 		$code = Request::instance()->param('code');
 		//Step2：通过Authorization Code获取Access Token
@@ -81,6 +81,11 @@ class ThirdPartyLogin extends Controller
 			'user_head' => $user_info['figureurl_qq_2']
 			],['third_id' => "tencent_" . $open_info->client_id]);
 		}
+		// 设置session标记，直接跳转到聊天主页界面
+		Session::set('username', $user_info['nickname']);
+		Session::set('user_head', $user_info['figureurl_qq_2']);
+        // 跳转到后台界面
+		$this->success("登录成功！",'/home-chat.html');
 
 	}
 	// 百度第三方登录
@@ -132,6 +137,12 @@ class ThirdPartyLogin extends Controller
 			'nickname'  => $user_info['uname'],
 			'user_head' => "http://tb.himg.baidu.com/sys/portraitn/item/" . $user_info['portrait']],['third_id' => "baidu_" . $user_info['uid']]);
 		}
+		// 设置session标记，直接跳转到聊天主页界面
+		Session::set('username', $user_info['uname']);
+		// 设置用户头像
+		Session::set('user_head', "http://tb.himg.baidu.com/sys/portraitn/item/" . $user_info['portrait']);
+        // 跳转到后台界面
+		$this->success("登录成功！",'/home-chat.html');
 	}
 	// 新浪微博第三方登录
 	public function sinaLogin(){
@@ -302,6 +313,12 @@ class ThirdPartyLogin extends Controller
 			'user_head' => $user_info['profile_image_url']
 			],['third_id' => "sina_" . $user_info['idstr']]);
 		}
+		// 设置session标记，直接跳转到聊天主页界面
+		Session::set('username', $user_info['screen_name']);
+		// 设置用户头像
+		Session::set('user_head', $user_info['profile_image_url']);
+        // 跳转到后台界面
+		$this->success("登录成功！",'/home-chat.html');
 		
 	}	
 

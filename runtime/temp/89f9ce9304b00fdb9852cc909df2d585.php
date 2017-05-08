@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:77:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\login.html";i:1493482773;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:77:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\login.html";i:1493997614;}*/ ?>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -41,8 +41,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- end-form -->
 <!-- start-account -->
 <div class="account">
-	<h2><a href="#">还没有账号? 立即注册!</a></h2>
-    <div class="span"><a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101399466&redirect_uri=http://www.joker1996.com/getTencentAccessToken.html" target="_blank"><img src="/static/chat/img/qq.png" alt=""/><i>QQ登录</i><div class="clear"></div></a></div>	
+	<h2><a href="/register.html">还没有账号? 立即注册!</a></h2>
+    <div class="span"><a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101399466&redirect_uri=http://www.joker1996.com/tencent_login.html" target="_blank"><img src="/static/chat/img/qq.png" alt=""/><i>QQ登录</i><div class="clear"></div></a></div>	
     <div class="span1"><a href="http://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=XnBrU4vhuxi9K6MWwcQBw6Uq&redirect_uri=http://www.joker1996.com/baidu_login.html" target="_blank"><img src="/static/chat/img/baidu.png" alt=""/><i>百度登录</i><div class="clear"></div></a></div>
     <div class="span2"><a href="https://api.weibo.com/oauth2/authorize?client_id=2975043359&response_type=code&redirect_uri=http://www.joker1996.com/sina_login.html" target="_blank"><img src="/static/chat/img/weibo.png" alt=""/><i>微博登录</i><div class="clear"></div></a></div>
 </div>	
