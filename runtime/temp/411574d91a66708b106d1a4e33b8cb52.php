@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:90:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\admin\webSite\albumList.html";i:1492438645;s:73:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\layout.html";i:1491802852;s:80:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\common\header.html";i:1492501070;s:80:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\common\footer.html";i:1492419437;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:90:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\admin\webSite\albumList.html";i:1492694180;s:73:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\layout.html";i:1491802852;s:80:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\common\header.html";i:1492501070;s:80:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\common\footer.html";i:1492419437;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -270,7 +270,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <script> 
     $("#plus_album").on("click",function(){
         layer.open({
             type: 2,

@@ -158,6 +158,51 @@ function cutstr_html($string,$length=0,$ellipsis='…'){
     return $string;
 }
 /**
+ * 删除文件夹下所有文件及文件夹
+ * @Author   不敢为天下
+ * @DateTime 2017-05-10T20:58:14+0800
+ * @param    [path]                   $dirName    [文件目录]
+ * @return   [boolean]                            [是否删除成功]
+ */
+function removeDir($dirName)  
+ 
+{  
+ 
+    if(! is_dir($dirName))  
+ 
+    {  
+ 
+   @unlink($dirName); 
+ 
+        return false;  
+ 
+    }  
+ 
+    $handle = @opendir($dirName);  
+ 
+    while(($file = @readdir($handle)) !== false)  
+ 
+    {  
+ 
+        if($file != '.' && $file != '..')  
+ 
+        {  
+ 
+            $dir = $dirName . '/' . $file;  
+ 
+            is_dir($dir) ? removeDir($dir) : @unlink($dir);  
+ 
+        }  
+ 
+    }  
+ 
+    closedir($handle);  
+ 
+ 
+    return true;  
+ 
+} 
+/**
  * 递归查找文件并删除不存在数组中的文件
  * @Author   不敢为天下
  * @DateTime 2017-04-17T19:28:36+0800

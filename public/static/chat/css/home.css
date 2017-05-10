@@ -46,6 +46,7 @@ body{
 .tar{
     clear:both;
     text-align: right;
+    margin-bottom: 10px;
 }
 /*.db{*/
     /*display: block;*/

@@ -43,18 +43,7 @@ class Index extends Controller
         
     }
     
-    public function uploadVoice(){
-        // 设置GatewayWorker服务的Register服务ip和端口，请根据实际情况改成实际值
-        Gateway::$registerAddress = '127.0.0.1:1236';
-        // 向任意uid的网站页面发送数据
-        $uid = Session::get('uid');
-        // 给当前客户端发送消息
-        Gateway::sendToClient($uid, json_encode(array(
-                    'type'      => 'send',
-                    'message' => $_POST['file']
-                )));
-  
-    }
+    
     public function bind(){
         // 获取所有post内容
         $data = input('post.');

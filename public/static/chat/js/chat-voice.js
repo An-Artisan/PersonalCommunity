@@ -41,7 +41,7 @@ ws.onmessage = function(e){
     // console.log(e);
 };
 
-  // commonNameEvent('div','bo','click',nameSuccessFunction);
+  commonNameEvent('div','bo','click',nameSuccessFunction);
     function nameSuccessFunction(e){
          $($(e).children('audio').get(0)).on('ended', function() {
             console.log("音频已播放完成");

@@ -68,6 +68,8 @@ class Index extends Controller
     public function clearPhotos(){
         // 定义文章图片目录
         $path = ROOT_PATH . 'public' . DS . 'static' . DS . 'blog' . DS . 'articleImages';
+        // 定义聊天的图片目录
+        $chatPath = ROOT_PATH . 'public' . DS . 'static' . DS . 'chat' . DS . 'chatImages';
         // 实例化表模型
         $photos = new Photos();
         // 查询所有的图片
@@ -79,7 +81,7 @@ class Index extends Controller
             $tablePhoto[] = $value->pho_filename;
         }
         // 清楚图片冗余
-        if(recursionSeekFiles($tablePhoto,$path))
+        if(recursionSeekFiles($tablePhoto,$path) && removeDir($chatPath))
             return json(["message"=>"清楚冗余图片成功！","ico"=>1]);
         return json(["message"=>"清楚冗余图片失败，请稍后再试！","ico"=>5]);
     }

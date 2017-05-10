@@ -38,7 +38,7 @@ class Create extends Controller
 		{
 		die('Could not connect: ' . mysqli_error());
 		}
-		if(mysqli_query($conn,"CREATE DATABASE personaladmin") && mysqli_query($conn,"CREATE DATABASE personalblog") && mysqli_query($conn,"CREATE DATABASE personalwebsite")){
+		if(mysqli_query($conn,"CREATE DATABASE personaladmin") && mysqli_query($conn,"CREATE DATABASE personalblog") && mysqli_query($conn,"CREATE DATABASE personalwebsite") && mysqli_query($conn,"CREATE DATABASE personalchat")){
 			// 切换数据库 在此数据库下建立表	
 			mysqli_select_db($conn,'personaladmin');
 			// 建立seo数据表
@@ -55,6 +55,26 @@ class Create extends Controller
 			$insert_seo = "INSERT INTO personaladmin.lq_seo (`a_title`,`a_desc`,`a_keywords`,`a_author`,`a_alias`) VALUES ('刘强个人网站','这是刘强自己的个人网站，主要从事计算机web方向，HTML，CSS，DIV，PHP，mysql，Laravel，框架，博客，电影等','刘强，强哥，自讽，不敢为天下，PHP，个人网站，计算机，编程，代码，游戏，朋友 ，旅游，电影，音乐，PUA，撩妹','刘强','website'),('刘强个人博客','刘强的个人博客，博客系统，刘强，强哥，学习，交流，laravel博客系统。框架系统。QQ：1090035743','刘强的个人博客，刘强的博客，刘强，编程博客系统','刘强','blog')";
 			// 执行插入数据操作
 		  	mysqli_query($conn,$insert_seo);
+		  	// 切换数据库 在此数据库下建立表	
+			mysqli_select_db($conn,'personalchat');
+			// 建立聊天分组数据表
+			mysqli_query($conn,"CREATE TABLE `lq_group` (
+			  `g_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分组id',
+			  `g_name` varchar(255) NOT NULL COMMENT '分组名称',
+			  `g_uid` char(50) NOT NULL COMMENT 'socket连接id',
+			  `g_nickname` char(30) NOT NULL COMMENT '用户昵称',
+			  PRIMARY KEY (`g_id`)
+			) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;");
+			// 建立聊天用户表
+			mysqli_query($conn,"CREATE TABLE `CREATE TABLE `lq_user` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user表自增id',
+			  `username` char(30) NOT NULL COMMENT '用户登录名',
+			  `third_id` char(20) NOT NULL COMMENT '第三方client_id',
+			  `password` char(65) NOT NULL COMMENT '用户登录密码',
+			  `nickname` char(25) NOT NULL COMMENT '用户昵称',
+			  `user_head` varchar(255) NOT NULL COMMENT '用户头像url地址',
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;");
 	        // 切换数据库 在此数据库下建立表
 		    mysqli_select_db($conn,'personalblog');
 		    // 建立博客文章表

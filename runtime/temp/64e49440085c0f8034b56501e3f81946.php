@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\home.html";i:1494254511;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\home.html";i:1494412077;}*/ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,13 +15,23 @@
     <script src="/static/common/bootstrap.js"></script>
     <script src="/static/common/layer/layer.js"></script>
     <script src="/static/common/layui/layui.js"></script>
+    <script src="/static/chat/js/recordmp3.js"></script>
     <script src="/static/common/common.js"></script>
     <script>
         var bind = "<?php echo url('chat/Index/bind'); ?>";
         var send_message = "<?php echo url('chat/SendMessage/sendMessage'); ?>";
         var upload_photo = "<?php echo url('chat/SendMessage/uploadPhoto'); ?>";
+        var voiceController = "<?php echo url('chat/SendVoiceMessage/sendVoiceMessage'); ?>";
     </script>
-   
+    <style>
+        .btn-audio{
+        /*margin: 90px auto;*/
+        width: 50px;
+        height: 50px;
+        background:url('/static/chat/img/voice_stop.png') no-repeat center bottom;
+        background-size:cover;
+        }
+</style>
 </head>
 <body>
 <div class="container">
@@ -51,18 +61,14 @@
                 <li style="float: right;"><a><img id="user_head" style="border-radius: 50%;"  width="33" src="<?php echo \think\Session::get('user_head'); ?>" alt="">
                 <span id="username"><?php echo \think\Session::get('username'); ?></span>
                 </a></li>
-
             </ul>
-
             <div class="right" id="main_content" data-spy="scroll" data-target="#navbar-example" data-offset="0">
-               
             </div>
             <div class="voice">
                 <span id="noticeVoice"><b style="color: #00A000;">●</b>录音已关闭</span>
                 <button class="btn" disabled="disabled" id="cancel" style="float: right;">取消</button>
                 <button class="btn" disabled="disabled" id="sendVoice" style="float: right;">发送</button>
             </div>
-            
             <form action="" class="form-horizontal">
                 <textarea id="demo" style="display: none;"></textarea>
                 <button type="button" id="send_message"  class="btn btn-primary">发送</button>

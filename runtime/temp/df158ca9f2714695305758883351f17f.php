@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:77:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\index.html";i:1493114858;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:77:"E:\WebRoot\PersonalCommunity\public/../application/chat\view\index\index.html";i:1494409144;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
     <script src="/static/common/common.js"></script>
     <meta charset="utf-8" />
     <style>
-        .btn-audio{
+   .btn-audio{
     /*margin: 90px auto;*/
     width: 50px;
     height: 50px;
@@ -34,10 +34,10 @@
     <!-- <script src="/static/chat/js/lame.min.js"></script> -->
     <!-- <script src="/static/chat/js/worker-realtime.js"></script> -->
     <script>
-    var voiceController = "<?php echo url('chat/Index/uploadVoice'); ?>";
+
     var bind = "<?php echo url('chat/Index/bind'); ?>";
     </script>
-    <script src="/static/chat/js/voice.js"></script>
+    <script src="/static/chat/js/chat-voice.js"></script>
 </body>
 </html>
 

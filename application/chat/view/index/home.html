@@ -14,13 +14,23 @@
     <script src="/static/common/bootstrap.js"></script>
     <script src="/static/common/layer/layer.js"></script>
     <script src="/static/common/layui/layui.js"></script>
+    <script src="/static/chat/js/recordmp3.js"></script>
     <script src="/static/common/common.js"></script>
     <script>
         var bind = "{:url('chat/Index/bind')}";
         var send_message = "{:url('chat/SendMessage/sendMessage')}";
         var upload_photo = "{:url('chat/SendMessage/uploadPhoto')}";
+        var voiceController = "{:url('chat/SendVoiceMessage/sendVoiceMessage')}";
     </script>
-   
+    <style>
+        .btn-audio{
+        /*margin: 90px auto;*/
+        width: 50px;
+        height: 50px;
+        background:url('/static/chat/img/voice_stop.png') no-repeat center bottom;
+        background-size:cover;
+        }
+</style>
 </head>
 <body>
 <div class="container">

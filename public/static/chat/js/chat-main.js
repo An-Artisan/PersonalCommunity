@@ -1,20 +1,34 @@
-var ws,layedit,index,current_id,user_list = [];
+var ws,layedit,index,current_id,user_list = [],voice_flag = 1;
 // 打开页面建立WebSocket链接
 connect();
-$(function() {
-    $(".right-bottom").click(function () {
-        $("#noticeVoice").html("<b style='color: #00A000;'>●</b>正在录音...");
-        $("#cancel").removeAttr("disabled");
-        $("#sendVoice").removeAttr("disabled");
-        $(".right-bottom").addClass("dn");
-    });
-    $("#cancel").click(function () {
-        $("#noticeVoice").html("<b style='color: #00A000;'>●</b>录音已关闭");
-        $("#cancel").attr("disabled","disabled");
-        $("#sendVoice").attr("disabled","disabled");
-        $(".right-bottom").removeClass("dn");
-    })
+$(".right-bottom").click(function () {
+    if(!voice_flag){
+      // 提示用户
+      layer.msg("当前浏览器不支持语音功能，只能接受语音。请更换Firefox浏览器。或者不使用语音功能");
+      // 结束函数
+      return false;
+    }
+    // 开始录音
+    recorder.start();
+    // 显示正在录音
+    $("#noticeVoice").html("<b style='color: #00A000;'>●</b>正在录音...");
+    // 发送和取消按钮可用
+    $("#cancel").removeAttr("disabled");
+    $("#sendVoice").removeAttr("disabled");
+    // 隐藏语音按钮
+    $(".right-bottom").addClass("dn");
 });
+$("#cancel").click(function () {
+    // 显示录音关闭
+    $("#noticeVoice").html("<b style='color: #00A000;'>●</b>录音已关闭");
+    // 发送和取消按钮不可用
+    $("#cancel").attr("disabled","disabled");
+    $("#sendVoice").attr("disabled","disabled");
+    // 显示语音按钮
+    $(".right-bottom").removeClass("dn");
+    // 结束录音
+    recorder.stop();
+})
 //进度条置于最下方
 $(document).ready(function(){
   document.getElementById('main_content').scrollTop = document.getElementById('main_content').scrollHeight;
@@ -100,6 +114,10 @@ function onmessage(e){
             // 接收远程消息，添加到当前聊天窗口
             receive_message(data);
             break;
+        case 'receive_voice':
+            // 接受远程语音消息，添加到当前聊天窗口
+            receive_voice_message(data);
+            break;
         case 'logout':
             // 提示用户有人下线
             layer.msg(data.message);
@@ -136,6 +154,8 @@ function onmessage(e){
        
    
     }
+    // 播放音频
+    commonNameEvent('div','bo','click',nameSuccessFunction);
     // console.log(e);
 };
 // 点击发送按钮
@@ -153,12 +173,25 @@ function send_message_local(){
     document.getElementById('main_content').scrollTop = document.getElementById('main_content').scrollHeight;
 
 }   
+// 接受远程语音消息
+function receive_voice_message(content){
+   // 如果当前的client_id相等的话，就不用显示了，因为在本地已经显示过一次
+    if(content.sender_id != current_id){
+        // 拼接聊天主区域内容
+        var chat_content = '<div class="tar bg-info">'+content.sender_name+'&nbsp;To&nbsp;'+content.getter_name+'<span><img style="border-radius: 50%;"  width="33" src="'+ content.sender_head+'"></span><br><br><p style="text-align: left;"><div class="btn-audio" name="bo"><audio id="mp3Btn" ><source src="'+content.message+'" type="audio/mpeg" /></audio></div></p></div>';
+        // 添加内容
+        $('#main_content').append(chat_content);
+        // 内容的滚动条置于最底端
+        document.getElementById('main_content').scrollTop = document.getElementById('main_content').scrollHeight;
+    }
+   
+}
 // 接收远程消息
 function receive_message(content){
     // 如果当前的client_id相等的话，就不用显示了，因为在本地已经显示过一次
     if(content.sender_id != current_id){
         // 拼接聊天主区域内容
-        var chat_content = '<div class="tar bg-info">'+content.sender_name+'&nbsp;To&nbsp;'+content.getter_name+'<span><img style="border-radius: 50%;"  width="33" src="'+ content.sender_head+'"></span><br><p style="text-align: left;">'+content.message+'</p></div>'
+        var chat_content = '<div class="tar bg-info">'+content.sender_name+'&nbsp;To&nbsp;'+content.getter_name+'<span><img style="border-radius: 50%;"  width="33" src="'+ content.sender_head+'"></span><br><br><p style="text-align: left;">'+content.message+'</p></div>'
         // 添加内容
         $('#main_content').append(chat_content);
         // 内容的滚动条置于最底端
@@ -219,4 +252,94 @@ function flush_user_list(){
          client_list_slelect.append('<option value="'+user_list[i][0]+'">'+user_list[i][1]+'</option>');
     }
     
+}
+// =====语音发送=====
+// 语音播放
+commonNameEvent('div','bo','click',nameSuccessFunction);
+// 切换音频的图标，停止图标
+function nameSuccessFunction(e){
+    // 当音频停止后执行
+    $($(e).children('audio').get(0)).on('ended', function() {
+    console.log("音频已播放完成");
+    // 切换停止图标
+    $(e).css({'background':'url("/static/chat/img/voice_stop.png") no-repeat center bottom','background-size':'cover'});
+    })
+    // 播放音频
+    voice(e,$(e).children('audio'));
+}
+function voice(element,elementChildren){
+    // 获取音频节点
+    var audio = elementChildren.get(0);
+    // event.stopPropagation();//防止冒泡
+    if(audio.paused){ //如果当前是暂停状态
+        // 切换播放图标
+        $(element).css({'background':'url("/static/chat/img/voice_play.png") no-repeat center bottom','background-size':'cover'});
+        audio.play(); //播放
+        return;
+    }else
+    {     
+        //当前是播放状态 切换停止图标
+        $(element).css({'background':'url("/static/chat/img/voice_stop.png") no-repeat center bottom','background-size':'cover'});
+        audio.pause(); //暂停 
+    }
+};
+// 实例化录音类
+var recorder = new MP3Recorder({
+    debug:true,
+    funOk: function () {
+        // btnStart.disabled = false;
+        // log('初始化成功');
+    },
+    funCancel: function (msg) {
+        // 打印console
+        console.log(msg);
+        // 置于空
+        recorder = null;
+        // 设置录音不可用
+        voice_flag = 0;
+    }
+});
+
+$('#sendVoice').on('click',funUpload);
+function funUpload() {
+    // 发送的时候录音停止
+    recorder.stop();
+    // 发送按钮和取消按钮置于不可用
+    $("#sendVoice").attr("disabled","disabled");
+    $("#cancel").attr("disabled","disabled");
+    // 显示录音图标
+    $(".right-bottom").removeClass("dn");
+    // 获取录音信息
+    recorder.getMp3Blob(function (blob) {
+        // 创建播放的url
+        var url = URL.createObjectURL(blob);
+        // 拼接音频的聊天记录样式
+        var chat_content = '<div class="tal bg-success"><span><img style="border-radius: 50%;"  width="33" src="' + $('#user_head').attr('src')+'" >'+$('#username').text()+'&nbsp;To&nbsp;'+$('#send_list option:selected').text()+'</span><br><br><div class="btn-audio" name="bo"><audio id="mp3Btn" ><source src="'+url+'" type="audio/mpeg" /></audio></div></div>';
+        // 添加至聊天主区域
+        $('#main_content').append(chat_content);
+        // 实例化FileReader
+        var reader = new FileReader();
+        // 实例化formdata
+        var fd = new FormData();
+        // 编码语音为base64
+        reader.readAsDataURL(blob);
+        // 当编码完成后上传ajax
+        reader.onload = function () {
+            // 追加数据到formData中
+            fd.append('to_client_id',$('#send_list option:selected').val());
+            fd.append('to_client_name',$('#send_list option:selected').text());
+            fd.append('client_name',$('#username').text());
+            fd.append('user_head',$('#user_head').attr("src"));
+            fd.append('content',reader.result);
+            fd.append('group',str);
+            fd.append('current_id',current_id);
+            // 提交ajax
+            formDataAjax('post',voiceController,voiceAjaxSuccessFunction,fd,'json');
+           
+        };
+       
+    });
+}
+function voiceAjaxSuccessFunction(json,id){
+   
 }

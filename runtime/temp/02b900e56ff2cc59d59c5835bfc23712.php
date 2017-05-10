@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:92:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\admin\webSite\uploadLayer.html";i:1492249480;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:92:"E:\WebRoot\PersonalCommunity\public/../application/admin\view\admin\webSite\uploadLayer.html";i:1492790547;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -36,7 +36,7 @@
 <input id="file" type="file" multiple="multiple" style="display:none">  
  <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="true">
-    <img id="0" src="/static/index/album/cover/1.jpg" alt="">&nbsp;&nbsp;请选择相册
+    <img id="0" src="/static/index/album/cover/2017-04-18143949.jpg" alt="">&nbsp;&nbsp;请选择相册
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

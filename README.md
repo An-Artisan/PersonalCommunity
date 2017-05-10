@@ -1,6 +1,6 @@
 刘强个人社区
 ===============
-基于thinphp5+ bootstrap + layer + layui + workerman + redis +  js + jq的开发
+基于thinphp5+ bootstrap + layer + layui + workerman   +  js + jq的开发
 <br>
 这里有图像处理，依赖ThinkPHP5的图像处理类库 composer require topthink/think-image即可
 <br>
@@ -16,9 +16,7 @@ CentOS 7.0
 <br>
 php 7.0
 <br>
-redis-3.2.8
-<br>
-php依赖扩展：event，redis，openssl，gd，openssl，mysqli，mbstring，sockets
+php依赖扩展：event,openssl，gd，openssl，mysqli，mbstring，sockets
 <br>
 mariadb-5.5.52(CentOS 7.0之后抛弃mysql，用mariadb代替mysql)
 <br>
@@ -101,13 +99,11 @@ GatewayClient下载地址 https://github.com/walkor/GatewayClient
 
 	6、页面发起的所有请求都直接post/get到mvc框架统一处理，包括发送消息
 
-	7、mvc框架处理业务过程中需要向某个uid或者某个群组发送数据时，用redis存储聊天数据，避免用mysql数据库存储数据，高并发下，会导致mysql服务器的崩溃。直接调用GatewayClient的接口Gateway::sendToUid Gateway::sendToGroup 等发送
+	7、mvc框架处理业务过程中需要向某个uid或者某个群组发送数据时。直接调用GatewayClient的接口Gateway::sendToUid Gateway::sendToGroup 等发送
 	
 	8、如果是语音或者图片，用FileReader.readAsDataURL()压缩语音或者图片成base64编码，然后经过GatewayClient接口转发给其他用户，这里语音或者图片没有保存至数据库，原因是base64编码过长，太占用数据库的资源。本还有一种办法，把语音或者图片打包成文件上传至服务器，不过这一种办法不太建议使用，这里的应用场景是即时通讯，如果用户频繁发送图片或者语音会导致磁盘I/O的开销过大(上传图片或者语音文件不得写入磁盘读取磁盘嘛~)。
-	
-	9、用户刷新页面在获取数据，从redis数据库获取数据，这里redis设置的是100条记录就往mysql数据库写入数据。避免了频繁的访问mysql服务器
 
 	10、用户下线，在GatewayWorker的Event.php中有一个onClose回调函数。有一个$client_id参数，根据$client_id去查询数据库属于哪一个分组，然后通过Gateway::sendToGroup 通知对应的分组，该客户端已经下线。如果是在全体分组里，直接调用Gateway::sendToAll
 	详细开发文档参考 [GatewayWorker2.x 3.x 手册](http://www.workerman.net/gatewaydoc/)
-
+	该聊天室没有存储数据。用于学习
     欢迎学习交流。QQ：1090035743

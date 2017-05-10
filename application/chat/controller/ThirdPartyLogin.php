@@ -40,7 +40,7 @@ class ThirdPartyLogin extends Controller
 			$rpos = strrpos($str, ")");
 			$str  = substr($str, $lpos + 1, $rpos - $lpos -1);
 		}else{
-			$this->error("授权失败，请稍后再试！",'/LoginChat.html');
+			$this->error("授权失败，请稍后再试！",'/login_chat.html');
 		}
 		// 返回一个user对象 client_id和openid是属性
 		$open_info = json_decode($str);
@@ -51,7 +51,6 @@ class ThirdPartyLogin extends Controller
 		}
 		$getUserInfoUrl = "https://graph.qq.com/user/get_user_info?access_token=$access_token&oauth_consumer_key=$app_id&openid=" . $open_info->openid;
 		$user_info = json_decode(file_get_contents($getUserInfoUrl),true);
-		// var_dump($user_info);
 		// 实例化user表
 		$user = new User();
 		// 查询单个数据
@@ -146,6 +145,10 @@ class ThirdPartyLogin extends Controller
 	}
 	// 新浪微博第三方登录
 	public function sinaLogin(){
+		// http://www.joker1996.com/sina_login.html?error_uri=%2Foauth2%2Fauthorize&error=access_denied&error_description=user%20denied%20your%20request.&error_code=21330
+		if(Request::instance()->param('error_code')){
+			$this->error("你已取消授权，正在返回登录界面！",'/login_chat.html');
+		}
 		// 应用的ApiKey
 		$app_key = "2975043359";
 		// 应用的SecretKey

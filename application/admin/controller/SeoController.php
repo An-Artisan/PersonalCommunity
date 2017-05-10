@@ -119,7 +119,7 @@ class SeoController extends Controller
 			// 返回值的地址赋值给cover
 			$cover = DS . 'static' . DS . 'index' . DS . 'head' . DS . $saveName;
 			// 删除之前的个人头像图
-			unlink(ROOT_PATH . 'public' .DS .$admin->a_photo);
+			unlink(ROOT_PATH . 'public' .$admin->a_photo);
 			// 数据库修改封面图地址
 			$admin->a_photo = $cover;
 		}
