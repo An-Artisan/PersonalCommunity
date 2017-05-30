@@ -254,39 +254,55 @@ function getNeedBetween($kw1,$mark1,$mark2){
 	return $kw;
 }
 /**
- * 模拟POST请求获取第三方网站接口数据
- * @Author   不敢为天下
- * @DateTime 2017-04-29T15:09:38+0800
- * @param    [String]                   $url [请求接口网址]
- * @return   [Array]                         [返回第三方接口数据]
- */
-function getHttpPostData($url){
-
-        $ch = curl_init();
-        // 请求URL地址
-      	curl_setopt($ch, CURLOPT_URL, $url);
-     	// 以POST方式请求URL地址
-      	curl_setopt($ch, CURLOPT_POST, 1);
-        /*
-            禁用后cURL将终止从服务端进行验证。使用CURLOPT_CAINFO选项设置证书使用CURLOPT_CAPATH选项设置证书目录 如果CURLOPT_SSL_VERIFYPEER(默认值为2)被启用，CURLOPT_SSL_VERIFYHOST需要被设置成TRUE否则设置为FALSE。
-            自cURL 7.10开始默认为TRUE。从cURL 7.10开始默认绑定安装。
-        */
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        /*
-            将curl_exec()获取的信息以文件流的形式返回，而不是直接输出。
-         */
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        // 得到数据
-        $data = curl_exec($ch);
-        // 如果是FALSE的话，代表请求网址失败
-        if($data === FALSE){
-            return false;
-        }
-        // 转换json格式为数组
-        $data = json_decode($data,TRUE);
-        // 关闭连接
-        curl_close($ch);
-        // 返回数据
-        return $data;
+* 模拟POST请求获取第三方网站接口数据
+* @Author   不敢为天下
+* @DateTime 2017-04-29T15:09:38+0800
+* @param    [String]                   $url [请求接口网址]
+* @param    [Array]                    $post_data [POST请求参数]
+* @return   [Array]                    [返回第三方接口数据]
+*/
+function getHttpPostData($url,$post_data){
+    // 如果url或者post参数为空，就返回false
+    if (empty($url) || empty($post_data)) {
+        return false;
+    }
+    $o = "";
+    // 打包参数
+    foreach ( $post_data as $k => $v ) 
+    { 
+        $o.= "$k=" . urlencode( $v ). "&" ;
+    }
+    // 删除最后一个&
+    $post_data = substr($o,0,-1);
+    // 初始化
+    $ch = curl_init();
+    // 请求URL地址
+    curl_setopt($ch, CURLOPT_URL, $url);
+    
+    /*
+        禁用后cURL将终止从服务端进行验证。使用CURLOPT_CAINFO选项设置证书使用CURLOPT_CAPATH选项设置证书目录 如果CURLOPT_SSL_VERIFYPEER(默认值为2)被启用，CURLOPT_SSL_VERIFYHOST需要被设置成TRUE否则设置为FALSE。
+        自cURL 7.10开始默认为TRUE。从cURL 7.10开始默认绑定安装。
+    */
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    /*
+        将curl_exec()获取的信息以文件流的形式返回，而不是直接输出。
+     */
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    // 以POST方式请求URL地址
+    curl_setopt($ch, CURLOPT_POST, true);
+    // 绑定post参数
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+    // 得到数据
+    $data = curl_exec($ch);
+    // 如果是FALSE的话，代表请求网址失败
+    if($data === FALSE){
+        return false;
+    }
+    // 转换json格式为数组
+    $data = json_decode($data,TRUE);
+    // 关闭连接
+    curl_close($ch);
+    // 返回数据
+    return $data;
 }

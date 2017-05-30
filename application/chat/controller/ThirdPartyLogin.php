@@ -158,9 +158,10 @@ class ThirdPartyLogin extends Controller
 		// 获取code值，用于获取Access Token
 		$code = Request::instance()->param('code');
 		// 拼接获取Access Token URL地址
-		$get_access_token_url = "https://api.weibo.com/oauth2/access_token?client_id=".$app_key."&client_secret=".$app_secret."&grant_type=authorization_code&redirect_uri=".$redirect_uri."&code=" . $code;
+		$get_access_token_url = "https://api.weibo.com/oauth2/access_token";
+		$arrayName = array('client_id' => $app_key, 'client_secret'=> $app_secret ,'grant_type' => 'authorization_code' ,'redirect_uri' => $redirect_uri ,'code' => $code );
 		// 调用自定义函数getHttpPostData 获取POST请求返回的数据
-		$access_token_and_uid = getHttpPostData($get_access_token_url);
+		$access_token_and_uid = getHttpPostData($get_access_token_url,$arrayName);
 		// 获取access_token
 		$access_token = $access_token_and_uid['access_token'];
 		// 获取uid
