@@ -41,10 +41,17 @@ class Index extends Controller
     public function message(){
     	// 获取数据
     	$data = input('post.');
+    	// 获取输入的验证码
+    	$captcha = $data['captcha'];
+    	// 验证验证码
+    	if(!captcha_check($captcha)){
+		 	return json(["message"=>"验证码错入错误，点击验证码可更换验证码！","ico"=>5]);
+		}
     	// 实例化模型
     	$message = new Message;
-		// 给模型的属性字段赋值
-		$message->m_name = $data['name'];
+		// 给模型的属性字段赋值 并过滤script和html标签
+		$message->m_name = filterTag($data['name']);
+		// $message->m_name = ($data['name']);
 		$message->m_email = $data['email'];
 		$message->m_content = $data['content'];
 		$message->m_time = date('Y-m-d H:i:s',time());

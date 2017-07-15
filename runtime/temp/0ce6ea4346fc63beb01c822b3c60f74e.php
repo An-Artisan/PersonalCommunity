@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:78:"E:\WebRoot\PersonalCommunity\public/../application/index\view\index\index.html";i:1492681462;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:78:"E:\WebRoot\PersonalCommunity\public/../application/index\view\index\index.html";i:1500101537;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -60,8 +60,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown active"><a href="#">个人网站</a></li>
         <li><a href="<?php echo url('blog/Index/index'); ?>" target="_blank">个人博客</a></li>
-    <!--     <li><a href="#">心情笔记</a></li>
-        <li><a href="#">在线聊天</a></li> -->
+        <li><a href="/login_chat.html" target="_blank">在线聊天</a></li>
         
       </ul>
      
@@ -212,6 +211,10 @@
                             <fieldset class="col-md-12 col-sm-12">
                                  <textarea id="demo" style="display: none;"></textarea>
                             </fieldset>
+                            <fieldset class="col-md-6 col-sm-6">
+                                <input type="text"  id="captcha" required="required" placeholder="Your captcha...">
+                            </fieldset>
+                            <div><img src="<?php echo captcha_src(); ?>" alt="captcha" onclick="this.src = '<?php echo captcha_src(); ?>?'+Math.random()" /></div>
                             <fieldset class="col-md-12 col-sm-12">
                                 <input type="button" id="submit"   class="button big default" value="提交留言">
                             </fieldset>

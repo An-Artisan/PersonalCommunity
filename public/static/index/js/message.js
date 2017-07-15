@@ -48,6 +48,7 @@ layui.use('layedit', function(){
 		// 追加数据到formData中
 		formData.append('name',$('#your-name').val());
 		formData.append('email',$('#email').val());
+		formData.append('captcha',$('#captcha').val());
 		formData.append('content',layedit.getContent(index));
 		// 发起ajax请求
 		formDataAjax('post',message,ajaxSuccessFunction,formData,'json');

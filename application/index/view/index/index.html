@@ -210,6 +210,10 @@
                             <fieldset class="col-md-12 col-sm-12">
                                  <textarea id="demo" style="display: none;"></textarea>
                             </fieldset>
+                            <fieldset class="col-md-6 col-sm-6">
+                                <input type="text"  id="captcha" required="required" placeholder="Your captcha...">
+                            </fieldset>
+                            <div><img src="{:captcha_src()}" alt="captcha" onclick="this.src = '{:captcha_src()}?'+Math.random()" /></div>
                             <fieldset class="col-md-12 col-sm-12">
                                 <input type="button" id="submit"   class="button big default" value="提交留言">
                             </fieldset>
