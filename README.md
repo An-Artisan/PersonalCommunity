@@ -106,4 +106,4 @@ GatewayClient下载地址 https://github.com/walkor/GatewayClient
 	10、用户下线，在GatewayWorker的Event.php中有一个onClose回调函数。有一个$client_id参数，根据$client_id去查询数据库属于哪一个分组，然后通过Gateway::sendToGroup 通知对应的分组，该客户端已经下线。如果是在全体分组里，直接调用Gateway::sendToAll
 	详细开发文档参考 [GatewayWorker2.x 3.x 手册](http://www.workerman.net/gatewaydoc/)
 	该聊天室没有存储数据。用于学习
-    欢迎学习交流。QQ：1090035743
+    欢迎学习交流。QQ：10406996
